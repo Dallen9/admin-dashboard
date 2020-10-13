@@ -2,9 +2,29 @@ import React, {useState, useEffect, useContext} from 'react'
 import {Card, Form, Container, Button} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import AuthContext from '../../context/auth/authContext';
 
-const Register = () => {
+const Register = (props) => {
     const [validated, setValidated] = useState(false);
+
+    const authContext = useContext(AuthContext);
+    const { register, isAuth } = authContext;
+
+
+    useEffect(() => {
+        if(isAuth) {
+            //redirect
+            props.history.push('/');
+        }
+
+        // if(error === 'User does not exist') {
+        //     // setAlert(error, 'danger');
+        //     setUser({...user, password: ''});
+        //     clearErrors();
+        // }
+        //eslint-disable-next-line
+    }, [ isAuth, props.history]);
+
     const schema = Yup.object({
         username: Yup.string()
         .required('Username is required')
@@ -35,6 +55,7 @@ const Register = () => {
                         onSubmit={values => {
                             console.log(values)
                             setValidated(true)
+                            register(values)
                         }}
                         initialValues={{
                             username: '',
@@ -108,6 +129,7 @@ const Register = () => {
                             <Form.Group controlId='role'>
                                 <Form.Label>Role</Form.Label>
                                     <Form.Control
+                                        required
                                         type='text'
                                         name='role'
                                         values={values.role}
@@ -116,7 +138,7 @@ const Register = () => {
                                         isInvalid={!!errors.role && touched.role}
                                         custom
                                     >
-                                        <option></option>
+                                        <option>Please Select</option>
                                         <option>Subscriber</option>
                                         <option>Author</option>
                                     </Form.Control>
@@ -124,10 +146,11 @@ const Register = () => {
                                     {errors.role}
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            <Button type="submit">Submit</Button>
+                            <Button variant="primary" block type="submit">Sign Up</Button>
                         </Form>
                         )}
                     </Formik>
+                    <p className='mt-3 text-center'>Already have an account? Login</p>
                 </Card.Body>
             </Card>
         </Container>
