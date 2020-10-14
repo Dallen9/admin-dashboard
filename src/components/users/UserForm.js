@@ -1,16 +1,35 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {Card, Form, Container, Button} from 'react-bootstrap';
-import {Route, Redirect} from 'react-router-dom';
+import {Form, Button, Modal, ModalFooter} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import AuthContext from '../../context/auth/authContext';
+import AdminContext from '../../context/admin/adminContext';
 
-const UserForm = ({component: Component, ...rest}) => {
+const UserForm = ({clicked}) => {
+    const adminContext = useContext(AdminContext);
+    const {addUser} = adminContext;
+
     const [validated, setValidated] = useState(false);
+    const [show, setShow] = useState(false);
 
-    const authContext = useContext(AuthContext);
-    const {register} = authContext;
-    
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const refreshPage = () => {
+        window.location.reload(false);
+      }
+
+      useEffect(() => {
+          
+        if(clicked) {
+            handleShow();
+        }
+
+        if(validated) {
+            refreshPage();
+        }
+
+    }, [validated, clicked])
+
         const schema = Yup.object({
             username: Yup.string()
             .required('Username is required')
@@ -28,21 +47,23 @@ const UserForm = ({component: Component, ...rest}) => {
             role: Yup.string()
             .required('You must select a role')
         });
-    
+  
         return (
-            <Container className='form-container'>
-                <Card className='card-container'>
-                    <Card.Title className='text-center'>
-                        <h3 className='mt-4'>Sign up</h3>
-                    </Card.Title>
-                    <Card.Body>
-                        <Formik
+            <>
+            <Modal
+             show={show}
+             onHide={handleClose}
+             backdrop="static"
+             keyboard={false}
+            >
+            <Modal.Header closeButton>
+            <Modal.Title className='text-center'>Add new user</Modal.Title>
+          </Modal.Header>
+          <Formik
                             validationSchema={schema}
-                            onSubmit={(values, {isSubmitting} )=> {
-                                console.log(values)
+                            onSubmit={(values)=> {
                                 setValidated(true)
-                                register(values)
-                                isSubmitting(false)
+                                addUser(values)
                             }}
                             initialValues={{
                                 username: '',
@@ -57,10 +78,11 @@ const UserForm = ({component: Component, ...rest}) => {
                             handleChange,
                             values,
                             touched,
-                            errors,
-                            isSubmitting
+                            errors
                         }) => (
+
                             <Form  noValidate validated={validated} onSubmit={handleSubmit}> 
+                                <Modal.Body>
                                 <Form.Group>
                                     <Form.Label>Username</Form.Label>
                                     <Form.Control
@@ -134,13 +156,15 @@ const UserForm = ({component: Component, ...rest}) => {
                                         {errors.role}
                                     </Form.Control.Feedback>
                                 </Form.Group>
-                                <Button variant="primary" block type="submit" isSubmitting={true} >Sign Up</Button>
+                                </Modal.Body>
+                                <ModalFooter>
+                                <Button variant="primary" block type="submit" >Sign Up</Button>
+                                </ModalFooter>
                             </Form>
                             )}
                         </Formik>
-                    </Card.Body>
-                </Card>
-            </Container>
+            </Modal>
+            </>
     )
 }
 

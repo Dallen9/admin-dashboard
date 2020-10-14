@@ -1,4 +1,4 @@
-import React,{Fragment, useContext, useEffect} from 'react';
+import React,{Fragment, useContext, useEffect, useState} from 'react';
 import {Table ,Container, Spinner, Button }from 'react-bootstrap';
 import AdminContext from '../../context/admin/adminContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,11 +13,15 @@ const Dashboard = () => {
     const {logout} = authContext;
     const {getUsers, loading, users, deleteUser} = adminContext;
 
+    const [clicked, setClicked] = useState(false);
 
     // const onDelete =(id) => {
     //     deleteUser(id);
     // }
 
+    const clickedBtn = () => setClicked({clicked: !clicked});  
+       
+    
     useEffect(() => {
         getUsers();
         //eslint-disable-next-line
@@ -47,8 +51,8 @@ const Dashboard = () => {
                 <tbody>
                     {users.map(user => (
                          <tr key ={user._id}>
-                            {user._id}
-                            <td>{user.name}</td>
+                            <td>{user._id}</td>
+                            <td>{user.username}</td>
                             <td>{user.password}</td>
                             <td>{user.email}</td>
                             <td>
@@ -67,7 +71,8 @@ const Dashboard = () => {
                 </tbody>
                 </Fragment>
             </Table>
-            <Button className='add-btn'>Add User</Button>
+            {clicked && <UserForm clicked={clicked} /> } 
+            <Button className='add-btn' onClick={clickedBtn} >Add User</Button>
             <span style={{display: 'inline-block', float:'right'}}><Button onClick={logout}>Logout</Button></span>
             </Container>
         )

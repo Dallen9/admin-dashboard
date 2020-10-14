@@ -3,6 +3,7 @@ import {Card, Form, Container, Button} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import AuthContext from '../../context/auth/authContext';
+import {Link} from 'react-router-dom';
 
 const Register = (props) => {
     const [validated, setValidated] = useState(false);
@@ -150,7 +151,14 @@ const Register = (props) => {
                         </Form>
                         )}
                     </Formik>
-                    <p className='mt-3 text-center'>Already have an account? Login</p>
+                    <p className='mt-3 text-center'>
+                        Already have an account?
+                        <span style={{marginLeft: 5}}>
+                            <Link to='/login'>
+                                Login
+                            </Link>
+                        </span> 
+                    </p>
                 </Card.Body>
             </Card>
         </Container>

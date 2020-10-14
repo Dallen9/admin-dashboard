@@ -3,41 +3,20 @@ import {Card, Form, Container, Button} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import AuthContext from '../../context/auth/authContext';
+import {Link} from 'react-router-dom';
 
 
 const Login = (props) => {
     const [validated, setValidated] = useState(false);
-    // const [user, setUser] = useState({
-    //     email:'',
-    //     password:''
-    // });
-    // const { email, password } = user;
 
     const authContext = useContext(AuthContext);
     const { login, isAuth } = authContext;
-    // const onChange = e => setUser({...user, [e.target.name]: e.target.value});
-
-    // const onSubmit = e => {
-    //     // e.preventDefault();
-    
-    //         login({
-    //             email,
-    //             password
-    //         });
-    //     }
-    
 
     useEffect(() => {
         if(isAuth) {
             //redirect
             props.history.push('/');
         }
-
-        // if(error === 'User does not exist') {
-        //     // setAlert(error, 'danger');
-        //     setUser({...user, password: ''});
-        //     clearErrors();
-        // }
         //eslint-disable-next-line
     }, [ isAuth, props.history, validated]);
 
@@ -109,7 +88,14 @@ const Login = (props) => {
                     </Form>
                 )}
             </Formik>
-            <p className='mt-3 text-center'>Don't have an account? Sign up</p>
+            <p className='mt-3 text-center'>
+                Don't have an account? 
+                <span style={{marginLeft: 5}}>
+                    <Link to='/register'>
+                    Sign up
+                    </Link>
+                    </span>
+            </p>
             </Card.Body>
         </Card>   
     </Container>

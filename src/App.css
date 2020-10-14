@@ -25,3 +25,6 @@
 a {
     text-decoration: none !important;
 }
+.close:focus {
+    outline: none !important;
+}
