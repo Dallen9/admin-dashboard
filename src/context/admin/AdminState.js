@@ -1,6 +1,6 @@
 import React, {useReducer} from 'react';
-import AdminContext from './authContext';
-import adminReducer from './authReducer';
+import AdminContext from './adminContext';
+import adminReducer from './adminReducer';
 import api from '../../utils/api';
 import {
     REGISTER_FAIL,
@@ -24,18 +24,21 @@ const AdminState = props => {
     }
 
     const [state, dispatch] = useReducer(adminReducer, initialState);
-
+   
       //Get all users
       const getUsers = async () => {
-   
         try {
-            const res = await api.get('admin');
+            const token = localStorage.getItem('token')
+            const res = await api.get('admin', {
+                headers: {
+                    'Authorization' : `Bearer ${token}`
+                }
+            });
 
             dispatch({
                  type: GET_USERS, 
                  payload: res.data
                 });
-
         } catch (err) {
             dispatch({type: USER_ERROR});
         }
@@ -45,9 +48,11 @@ const AdminState = props => {
         const addUser = async formData => {
         
             try {
+                const token = localStorage.getItem('token')
                 const res = await api.post('admin/create-user', formData, {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer: ${token}`
                     }
                 });
                 
@@ -68,9 +73,12 @@ const AdminState = props => {
         const updateUser = async user => {
          
             try {
+                const token = localStorage.getItem('token')
+
                 const res = await api.put(`admin/${user._id}`, user, {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     }
                 });
                 dispatch({
@@ -90,10 +98,12 @@ const AdminState = props => {
         const deleteUser = async id => {
         
             try {
+                // const token = localStorage.getItem('token')
+
                 const res = await api.delete(`admin/${id}`);
                 dispatch({
                     type: DELETE_USER,
-                    payload: id
+                    payload: res.data
                 });
     
             } catch (err) {

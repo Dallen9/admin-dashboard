@@ -1,10 +1,11 @@
 import React, {useContext, useEffect} from 'react'
 import AuthContext from '../../context/auth/authContext';
 import Dashboard from '../pages/Dashboard';
+import {Button} from 'react-bootstrap'
 
 const Home = () => {
     const authContext = useContext(AuthContext);
-    const {user} = authContext;
+    const {user, logout} = authContext;
 
     useEffect(() => {
         authContext.loadUser();
@@ -13,7 +14,7 @@ const Home = () => {
 
     return (
         <div>
-            {user && user.role === 'super_admin' ? <Dashboard /> : <h1>bye</h1>}
+            {user && user.role === 'super_admin' ? <Dashboard /> : <Button variant='primary' onClick={logout}>logout</Button>}
         </div>
     )
 }

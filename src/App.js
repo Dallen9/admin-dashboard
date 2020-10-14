@@ -7,11 +7,12 @@ import Login from './components/auth/Login';
 import PrivateRoute from './components/routes/PrivateRoute';
 import Home from './components/pages/Home';
 import AuthState from './context/auth/AuthState';
-
+import AdminState from './context/admin/AdminState';
 function App() {
  
   return (
     <AuthState>
+      <AdminState>
     <Router>
       <Fragment>
         <div className="App">
@@ -23,6 +24,7 @@ function App() {
         </div>
       </Fragment>
     </Router>
+    </AdminState>
     </AuthState>
    
   

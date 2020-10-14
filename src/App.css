@@ -7,3 +7,21 @@
     width: 40%;
     border-radius: 2% !important;
 }
+.loading {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+.btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.add-btn {
+    background-Color:#4CAF50 !important;
+    border: none !important;
+}
+a {
+    text-decoration: none !important;
+}
