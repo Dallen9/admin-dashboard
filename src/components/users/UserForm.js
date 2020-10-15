@@ -57,7 +57,7 @@ const UserForm = ({clicked}) => {
              keyboard={false}
             >
             <Modal.Header closeButton>
-            <Modal.Title className='text-center'>Add new user</Modal.Title>
+            <Modal.Title className='text-center'>Create new user</Modal.Title>
           </Modal.Header>
           <Formik
                             validationSchema={schema}
@@ -158,7 +158,7 @@ const UserForm = ({clicked}) => {
                                 </Form.Group>
                                 </Modal.Body>
                                 <ModalFooter>
-                                <Button variant="primary" block type="submit" >Sign Up</Button>
+                                <Button variant="primary" block type="submit" >Create user</Button>
                                 </ModalFooter>
                             </Form>
                             )}

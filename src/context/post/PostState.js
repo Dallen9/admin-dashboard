@@ -1,55 +1,77 @@
 import React, {useReducer} from 'react';
-import AdminContext from './adminContext';
-import adminReducer from './adminReducer';
+import PostContext from './postContext';
+import postReducer from './postReducer';
 import api from '../../utils/api';
 import {
-    REGISTER_FAIL,
-    GET_USERS,
-    UPDATE_USER,
-    DELETE_USER,
-    ADD_USER,
-    USER_ERROR,
+    GET_POSTS,
+    ADD_POST,
+    UPDATE_POST,
+    DELETE_POST,
+    POST_ERROR,
     CLEAR_USERS,
     CLEAR_CURRENT,
+    GET_USER_POSTS,
     SET_CURRENT
 } from '../types';
 
-const AdminState = props => {
+const PostState = props => {
     const initialState = {
-        users:null,
+        posts:null,
         current: null,
-        isAuthorized: false,
         loading: true,
+        isAuthorized: null,
         error: null
     }
 
-    const [state, dispatch] = useReducer(adminReducer, initialState);
+    const [state, dispatch] = useReducer(postReducer, initialState);
    
-      //Get all users
-      const getUsers = async () => {
+      //Get all posts
+      const getPosts = async () => {
         try {
             const token = localStorage.getItem('token')
-            const res = await api.get('admin', {
+            const res = await api.get('post', {
                 headers: {
                     'Authorization' : `Bearer ${token}`
                 }
             });
 
             dispatch({
-                 type: GET_USERS, 
+                 type: GET_POSTS, 
                  payload: res.data
                 });
         } catch (err) {
-            dispatch({type: USER_ERROR});
+            dispatch({type: POST_ERROR});
         }
     }
 
-        //Register user
-        const addUser = async formData => {
-        
+        //get all posts by a user
+        const getUserPosts = async id => {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await api.get(`post/${id}`, {
+                    headers: {
+                        'Authorization' : `Bearer ${token}`
+                    }
+                });
+
+                dispatch({
+                    type: GET_USER_POSTS,
+                    payload: res.data
+                })
+            } catch (err) {
+                dispatch({
+                    type: POST_ERROR,
+                    payload: err.message
+                });
+            }
+           
+        }
+
+        //add post
+        const addPost = async formData => {
             try {
                 const token = localStorage.getItem('token')
-                const res = await api.post('admin/create-user', formData, {
+                const res = await api.post('admin/post', formData, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer: ${token}`
@@ -57,45 +79,45 @@ const AdminState = props => {
                 });
                 
                 dispatch({
-                    type: ADD_USER,
+                    type: ADD_POST,
                     payload: res.data
                 });
     
             } catch (err) {
                 dispatch({
-                    type: REGISTER_FAIL,
+                    type: POST_ERROR,
                     payload: err.message
                 });
             }
         };
 
         //Update User
-        const updateUser = async user => {
+        const updatePost = async post => {
          
             try {
                 const token = localStorage.getItem('token')
 
-                const res = await api.put(`admin/${user._id}`, user, {
+                const res = await api.put(`post/${post._id}`, post, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     }
                 });
                 dispatch({
-                    type: UPDATE_USER,
+                    type: UPDATE_POST,
                     payload: res.data
                 });
     
             } catch (err) {
                 dispatch({
-                    type: USER_ERROR,
+                    type: POST_ERROR,
                     payload: err.message
                 });
             }
         };
 
         //Delete User
-        const deleteUser = async id => {
+        const deletePost = async id => {
         
             try {
                 const token = localStorage.getItem('token')
@@ -106,20 +128,20 @@ const AdminState = props => {
                     }
                 });
                 dispatch({
-                    type: DELETE_USER,
+                    type: DELETE_POST,
                     payload: id
                 });
     
             } catch (err) {
                 dispatch({
-                    type: USER_ERROR,
+                    type: POST_ERROR,
                     payload: err.message
                 });
             }
         };
 
-  //Clear contacts
-  const clearUsers = () => dispatch({ type: CLEAR_USERS});
+  //Clear Post
+  const clearPosts = () => dispatch({ type: CLEAR_USERS});
 
   //Set current contact
   const setCurrent = user => {
@@ -133,25 +155,25 @@ const AdminState = props => {
 
       
     return (
-        <AdminContext.Provider
+        <PostContext.Provider
         value={{
-            users: state.users,
-            isAuthorized: state.isAuthorized,
+            posts: state.posts,
             current: state.current,
             loading: state.loading,
             error: state.error,
-            getUsers,
-            addUser,
-            updateUser,
-            deleteUser,
-            clearUsers,
+            getPosts,
+            getUserPosts,
+            addPost,
+            updatePost,
+            deletePost,
+            clearPosts,
             clearCurrent,
             setCurrent
         }}
         >
             {props.children}
-        </AdminContext.Provider>
+        </PostContext.Provider>
     )
 };
 
-export default AdminState;
+export default PostState;

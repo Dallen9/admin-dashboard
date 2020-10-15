@@ -1,5 +1,6 @@
 export const ADD_POST = 'APP_POST';
 export const GET_POSTS = 'GET_POSTS';
+export const GET_USER_POSTS = 'GET_USER_POSTS';
 export const DELETE_POST = 'DELETE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const POST_ERROR = 'POST_ERROR';
@@ -17,5 +18,6 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CLEAR_USERS = 'CLEAR_USERS';
+export const CLEAR_POSTS = 'CLEAR_POSTS';
 export const CLEAR_CURRENT = 'CLEAR_CURRENT';
 export const SET_CURRENT  = 'SET_CURRENT';

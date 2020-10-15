@@ -8,23 +8,26 @@ import PrivateRoute from './components/routes/PrivateRoute';
 import Home from './components/pages/Home';
 import AuthState from './context/auth/AuthState';
 import AdminState from './context/admin/AdminState';
+import PostState from './context/post/PostState';
+
 function App() {
- 
   return (
     <AuthState>
       <AdminState>
-    <Router>
-      <Fragment>
-        <div className="App">
-          <Switch>
-            <PrivateRoute exact path='/' component={Home} />
-            <Route exact path='/register' component={Register}/>
-            <Route exact path='/login' component={Login}/>
-          </Switch>
-        </div>
-      </Fragment>
-    </Router>
-    </AdminState>
+        <PostState>
+          <Router>
+            <Fragment>
+              <div className="App">
+                <Switch>
+                  <PrivateRoute exact path='/' component={Home} />
+                  <Route exact path='/register' component={Register}/>
+                  <Route exact path='/login' component={Login}/>
+                </Switch>
+              </div>
+            </Fragment>
+          </Router>
+        </PostState>
+      </AdminState>
     </AuthState>
    
   

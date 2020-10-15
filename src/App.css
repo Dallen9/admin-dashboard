@@ -28,3 +28,16 @@ a {
 .close:focus {
     outline: none !important;
 }
+
+.nav-align {
+    display: flex ;
+    flex: 1;
+    justify-content:flex-end;
+    margin-right: 25px;
+}
+.nav-link:hover {
+    color: white !important;
+}
+.spacer {
+    padding: 10px 30px !important;
+}
