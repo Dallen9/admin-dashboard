@@ -8,11 +8,11 @@ const PrivateRoute = ({component: Component, ...rest}) => {
     const {isAuth, loading} = authContext;
 
     return (
-        <Route
+        <Route 
         {...rest}
-        render={props =>
+        render={ props  =>
             !isAuth && !loading ? (
-                <Redirect to ='login' />
+                <Redirect to ='login'/>
             ) : (
                 <Component {...props} />
             )}

@@ -23,6 +23,7 @@
     border: none !important;
 }
 a {
+    color: 'grey' !important;
     text-decoration: none !important;
 }
 .close:focus {
@@ -41,3 +42,4 @@ a {
 .spacer {
     padding: 10px 30px !important;
 }
+

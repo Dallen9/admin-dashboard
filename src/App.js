@@ -6,22 +6,26 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import PrivateRoute from './components/routes/PrivateRoute';
 import Home from './components/pages/Home';
+import Post from './components/pages/Post';
 import AuthState from './context/auth/AuthState';
 import AdminState from './context/admin/AdminState';
 import PostState from './context/post/PostState';
+import BlogNavbar from './components/layout/BlogNavbar';
 
 function App() {
   return (
     <AuthState>
       <AdminState>
         <PostState>
-          <Router>
+          <Router >
+          <BlogNavbar />
             <Fragment>
               <div className="App">
                 <Switch>
                   <PrivateRoute exact path='/' component={Home} />
                   <Route exact path='/register' component={Register}/>
                   <Route exact path='/login' component={Login}/>
+                  <PrivateRoute exact path='/post' component={Post}/>
                 </Switch>
               </div>
             </Fragment>

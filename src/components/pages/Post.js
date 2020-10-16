@@ -4,14 +4,13 @@ import PostContext from '../../context/post/postContext';
 import AuthContext from '../../context/auth/authContext';
 
 const Post = () => {
+    const authContext = useContext(AuthContext);
     const postContext = useContext(PostContext);
     const {getPosts, loading, posts} = postContext;
 
-    const authContext = useContext(AuthContext);
-    const {user} = authContext;
-
     useEffect(() => {
         getPosts();
+        authContext.loadUser();
         //eslint-disable-next-line
     }, []);
 
@@ -37,7 +36,7 @@ const Post = () => {
                                </Card.Title>
                                <Card.Body>
                                   
-
+                                    <h2>{post.user.name}</h2>
                                   
                                   <p>{post.body}</p> 
                                </Card.Body>
