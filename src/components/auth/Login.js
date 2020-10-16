@@ -41,7 +41,6 @@ const Login = (props) => {
                     onSubmit={ values => {
                         setValidated(true)
                         login(values)
-                        console.log(values)
                     }
                     }
                     initialValues={{

@@ -4,6 +4,7 @@ import AdminContext from '../../context/admin/adminContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import UserForm from '../users/UserForm';
+import {Link} from 'react-router-dom';
 
 const Dashboard = () => {
     const adminContext = useContext(AdminContext);
@@ -39,6 +40,7 @@ const Dashboard = () => {
                             <th>Id</th>
                             <th>Username</th>
                             <th>Password</th>
+                            <th>Role</th>
                             <th>Email</th>
                             <th>Profile</th>
                             <th className='text-center'>Delete</th>
@@ -50,11 +52,12 @@ const Dashboard = () => {
                                 <td>{user._id}</td>
                                 <td>{user.username}</td>
                                 <td>{user.password}</td>
+                                <td>{user.role}</td>
                                 <td>{user.email}</td>
                                 <td>
-                                    <a href='/' >
+                                    <Link to='/' >
                                     Visit profile
-                                    </a>
+                                    </Link>
                                 </td>
                                 <td style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
                                     <a href='/' onClick={() => onDelete(user._id)} >

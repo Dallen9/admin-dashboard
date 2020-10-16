@@ -7,6 +7,7 @@ import Login from './components/auth/Login';
 import PrivateRoute from './components/routes/PrivateRoute';
 import Home from './components/pages/Home';
 import Post from './components/pages/Post';
+import PostDetail from './components/pages/PostDetail';
 import AuthState from './context/auth/AuthState';
 import AdminState from './context/admin/AdminState';
 import PostState from './context/post/PostState';
@@ -23,9 +24,10 @@ function App() {
               <div className="App">
                 <Switch>
                   <PrivateRoute exact path='/' component={Home} />
+                  <PrivateRoute exact path='/blog' component={Post}/>
+                  <PrivateRoute exact path='/detail' component={PostDetail}/>
                   <Route exact path='/register' component={Register}/>
                   <Route exact path='/login' component={Login}/>
-                  <PrivateRoute exact path='/post' component={Post}/>
                 </Switch>
               </div>
             </Fragment>

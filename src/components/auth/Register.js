@@ -54,7 +54,6 @@ const Register = (props) => {
                     <Formik
                         validationSchema={schema}
                         onSubmit={values => {
-                            console.log(values)
                             setValidated(true)
                             register(values)
                         }}

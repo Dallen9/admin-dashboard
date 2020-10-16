@@ -42,4 +42,23 @@ a {
 .spacer {
     padding: 10px 30px !important;
 }
+.layout {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 !important;
+}
+.card-layout {
+    height: 400px;
+    width: 350px;
+    margin-bottom: 3rem;
+}
+
+.card-img {
+    width: auto;
+    height: 200px;
+}
+
 
