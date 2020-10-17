@@ -87,7 +87,7 @@ const AuthState = props => {
             } catch (err) {
                 dispatch({
                     type: LOGIN_FAIL,
-                    payload: err.message
+                    payload: err.response.msg
                 });
             }
         };

@@ -44,8 +44,8 @@ const PostState = props => {
         }
     }
 
-        //get all posts by a user
-        const getUserPosts = async id => {
+        //get user post with post ID
+        const getUserPost = async id => {
             try {
                 const token = localStorage.getItem('token');
                 const res = await api.get(`post/${id}`, {
@@ -162,7 +162,7 @@ const PostState = props => {
             loading: state.loading,
             error: state.error,
             getPosts,
-            getUserPosts,
+            getUserPost,
             addPost,
             updatePost,
             deletePost,

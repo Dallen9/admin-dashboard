@@ -10,8 +10,8 @@ const Login = (props) => {
     const [validated, setValidated] = useState(false);
 
     const authContext = useContext(AuthContext);
-    const { login, isAuth } = authContext;
-
+    const { login, isAuth, error, user } = authContext;
+    
     useEffect(() => {
         if(isAuth) {
             //redirect
@@ -27,6 +27,7 @@ const Login = (props) => {
         password: Yup.string()
         .required('Password is required')
         .min(6, 'Password must be 6 characters or more')
+        
     });
 
     return (
@@ -38,9 +39,17 @@ const Login = (props) => {
                 <Card.Body>
                     <Formik
                     validationSchema={schema}
-                    onSubmit={ values => {
-                        setValidated(true)
-                        login(values)
+                    onSubmit={ (values, actions )=> {
+                            if(error) {
+                                console.log(error)
+                                actions.setSubmitting(false)
+                                setValidated(false)
+                                actions.setErrors({password: 'User email or password is invalid'})
+                            } else {
+                                setValidated(true)
+                                login(values)
+                            }
+                     
                     }
                     }
                     initialValues={{
@@ -54,7 +63,11 @@ const Login = (props) => {
                     handleChange,
                     values,
                     touched,
-                    errors
+                    errors,
+                    setSubmitting,
+                    setErrors,
+                    setStatus,
+                    isSubmitting
                 }) => (   
                     <Form  noValidate validated={validated} onSubmit={handleSubmit}>  
                         <Form.Group>

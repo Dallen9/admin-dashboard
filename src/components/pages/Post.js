@@ -11,9 +11,9 @@ const Post = () => {
 
     const loadDetail = (key, post) => {
         return (
-            <>
+            <div>
             <PostDetail key={key} post={post} />
-            </>
+            </div>
         )
     }
     useEffect(() => {
@@ -42,9 +42,9 @@ const Post = () => {
                     posts.map(post => (
                         
                        
+                       <div>
                         <Card key={post._id} className='card-layout'>
-                            <a style={{color:'black'}} href='/detail' onClick={() => <PostDetail key={post._id} post={post} /> }
-                                >
+                            <a style={{color:'black'}} href='/detail' onClick={() => <PostDetail />} >
                             <Card.Img variant= 'top' className='card-img' src={stock} alt='stock'/>
                             <Card.Body>
                             <h4>{post.title}</h4>
@@ -54,6 +54,7 @@ const Post = () => {
                             </Card.Body>
                             </a>
                         </Card>
+                        </div>
                      
                     ))
                 )} 
