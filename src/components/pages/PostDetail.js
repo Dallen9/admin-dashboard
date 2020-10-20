@@ -1,4 +1,4 @@
-import React, {Fragment, useContext, useEffect} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {Card, Container, Spinner, Col, Row} from 'react-bootstrap';
 import PostContext from '../../context/post/postContext';
 import AuthContext from '../../context/auth/authContext';
@@ -11,14 +11,11 @@ const PostDetail = (props) => {
 
     useEffect(() => {
         authContext.loadUser();
-        
-        if(props.post !== null) {
-            getUserPost(props.match.params.id)
-        }
+        getUserPost(props.match.params.id)
         //eslint-disable-next-line
     }, [])
 
-    if(!post) {
+    if(post !== null && post.length === 0 && !loading) {
         return <h4> Post unavailable</h4>
     }
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Card, Form, Container, Button} from 'react-bootstrap';
+import {Card, Form, Container, Button, Row, Col} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import AuthContext from '../../context/auth/authContext';
@@ -31,8 +31,10 @@ const Login = (props) => {
     });
 
     return (
-        <Container className='form-container'>
-            <Card className='card-container'>
+        <Container style={{height: '90vh'}}>
+            <Row style={{height: '100%'}} >
+                <Col className='d-flex align-items-center justify-content-center'>
+                <Card className='form-card'>
                 <Card.Title className='text-center'>
                     <h3 className='mt-4'>Login</h3>
                 </Card.Title>
@@ -110,6 +112,8 @@ const Login = (props) => {
             </p>
             </Card.Body>
         </Card>   
+                </Col>
+            </Row>
     </Container>
 
     )

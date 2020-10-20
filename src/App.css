@@ -1,10 +1,6 @@
-.form-container {
-    display: flex;
-    height: 100vh;
-}
-.card-container {
-    margin: auto;
-    width: 40%;
+
+.form-card {
+    width: 25em;
     border-radius: 2% !important;
 }
 .loading {
@@ -30,35 +26,16 @@ a {
     outline: none !important;
 }
 
-.nav-align {
-    display: flex ;
-    flex: 1;
-    justify-content:flex-end;
-    margin-right: 25px;
-}
 .nav-link:hover {
     color: white !important;
 }
-.spacer {
-    padding: 10px 30px !important;
-}
-.layout {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 0 !important;
-}
-.card-layout {
-    height: 400px;
-    width: 350px;
-    margin-bottom: 3rem;
-}
-
 .card-img {
     width: auto;
     height: 200px;
 }
 
+/* @media(max-width: 600px) {
+   .card-layout {
 
+   }
+} */

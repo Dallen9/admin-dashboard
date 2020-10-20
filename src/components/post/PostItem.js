@@ -5,8 +5,8 @@ import stock from '../../assets/stock.jpg';
 
 const PostItem = ({post}) => {
     return (
-        <Card key={post._id} className='card-layout' >
-            <Link style={{color: 'black'}} to={'/detail/' + post._id}>
+        <Card key={post._id} className='mb-5' >
+            <Link key={post._id} style={{color: 'black'}} to={'/detail/' + post._id}>
             <Card.Img variant= 'top' className='card-img' src={stock} alt='stock'/>
             <Card.Body>
             <h4>{post.title}</h4>

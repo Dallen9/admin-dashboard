@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {Card, Form, Container, Button} from 'react-bootstrap';
+import {Card, Form, Container, Button, Row, Col} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import AuthContext from '../../context/auth/authContext';
@@ -17,12 +17,6 @@ const Register = (props) => {
             //redirect
             props.history.push('/');
         }
-
-        // if(error === 'User does not exist') {
-        //     // setAlert(error, 'danger');
-        //     setUser({...user, password: ''});
-        //     clearErrors();
-        // }
         //eslint-disable-next-line
     }, [ isAuth, props.history]);
 
@@ -45,8 +39,10 @@ const Register = (props) => {
     });
 
     return (
-        <Container className='form-container'>
-            <Card className='card-container'>
+        <Container style={{height: '90vh'}}>
+            <Row style={{height: '100%'}}>
+                <Col className='d-flex align-items-center justify-content-center'>
+                <Card className='form-card my-5'>
                 <Card.Title className='text-center'>
                     <h3 className='mt-4'>Sign up</h3>
                 </Card.Title>
@@ -160,6 +156,8 @@ const Register = (props) => {
                     </p>
                 </Card.Body>
             </Card>
+                </Col>
+            </Row>
         </Container>
     );  
 }

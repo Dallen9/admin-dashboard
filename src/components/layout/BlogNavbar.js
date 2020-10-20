@@ -39,21 +39,26 @@ const BlogNavbar = () => {
    
     return (
         <Fragment>
-                <Navbar sticky="top" bg='dark' variant='dark' style={{overflow: 'hidden'}} >
-                <Navbar.Brand as={Link} to='/'>
-                        <FontAwesomeIcon  icon={faBookReader} style={{fontSize: '40px'}}/>
-                        <h3 style={{display:'inline-block', marginLeft:'10px'}}>Amazing Blog</h3>
+                <Navbar collapseOnSelect expand="md" sticky="top" bg='dark' variant='dark' className='px-4' style={{minHeight: '80px' }}>
+                <Navbar.Brand className='d-flex align-items-center' as={Link} to='/'>
+                        <FontAwesomeIcon  icon={faBookReader} size='2x'/>
+                        <h3 className='my-auto ml-2' >Amazing Blog</h3>
                 </Navbar.Brand>
-                <Nav className='nav-align'>
+                <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
+                <Navbar.Collapse id='responsive-navbar-nav'>
+                <Nav className='ml-auto pr-2'>
                     {isAuth && !loading ? authLinks : guestLinks}
                 </Nav>
+                <Nav>
                 {isAuth && !loading ? (
-                <Link to='/' onClick={logout}>
-                <FontAwesomeIcon  icon={faSignOutAlt} style={{fontSize: '25px', color: 'white'}}/> 
-                <h6 style={{display: 'inline-block', color:'white', marginLeft:'10px', verticalAlign:'center !important'}}>Logout</h6> 
-                </Link>
+                <Nav.Link as={Link} to='/'className='d-flex align-items-center' onClick={logout}>
+                <FontAwesomeIcon  icon={faSignOutAlt} size='lg' color='white'/> 
+                <h6 className='my-auto ml-1 text-white'>Logout</h6> 
+                </Nav.Link>
                 ) : null
                 }
+                </Nav>
+                </Navbar.Collapse>
             </Navbar>
         </Fragment>
     )
