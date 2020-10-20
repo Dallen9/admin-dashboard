@@ -1,26 +1,20 @@
 import React, {Fragment, useContext, useEffect} from 'react'
-import {Card, Container, Spinner} from 'react-bootstrap';
+import {Card, Container, Spinner, Row, Col} from 'react-bootstrap';
 import PostContext from '../../context/post/postContext';
 import AuthContext from '../../context/auth/authContext';
-import PostDetail from './PostDetail';
-import stock from '../../assets/stock.jpg';
+
+import PostItem from '../post/PostItem';
 const Post = () => {
     const authContext = useContext(AuthContext);
     const postContext = useContext(PostContext);
-    const {getPosts, loading, posts} = postContext;
+    const {getPosts, loading, posts, getUserPost} = postContext;
 
-    const loadDetail = (key, post) => {
-        return (
-            <div>
-            <PostDetail key={key} post={post} />
-            </div>
-        )
-    }
+    
     useEffect(() => {
         getPosts();
         authContext.loadUser();
         //eslint-disable-next-line
-    }, []);
+    }, [loading]);
 
     if(posts !== null && posts.length === 0 && !loading) {
         return <h4>No post available...</h4>
@@ -36,30 +30,26 @@ const Post = () => {
         return (
             <Container className='mt-5'>
             <h2>Crazy Stories</h2>
-            <p>{posts.length} stories</p>
-            <Container className='layout' >
-                {posts !== null && !loading && (
-                    posts.map(post => (
-                        
-                       
-                       <div>
-                        <Card key={post._id} className='card-layout'>
-                            <a style={{color:'black'}} href='/detail' onClick={() => <PostDetail />} >
-                            <Card.Img variant= 'top' className='card-img' src={stock} alt='stock'/>
-                            <Card.Body>
-                            <h4>{post.title}</h4>
-                            <p style={{color: 'grey', marginBottom: '5px'}}>{post.date}</p>
-                            <h6 style={{textTransform: 'capitalize'}}>By {post.user.name}</h6>
-                                <p>{post.body}</p> 
-                            </Card.Body>
-                            </a>
-                        </Card>
-                        </div>
-                     
-                    ))
-                )} 
-                </Container>
+            <p>{posts !== null ? posts.length : null} stories</p>
+            <Row className='mt-2'>
+            
+                {posts !== null && !loading ? (
+                    posts.map(post => {
+                       return (
+                        <Col md={6} lg={4} className='d-flex flex-column align-items-center '>
+                       <PostItem key={post._id} post={post} />
+                       </Col>
+                       )
+                       }
+                    )
+                ) :  <Container className='loading'>
+                        <Spinner animation='border' size='large' />
+                    </Container>
+                } 
+                 
+                </Row>
             </Container>
+           
         )
     }
 }

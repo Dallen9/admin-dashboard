@@ -1,25 +1,54 @@
 import React, {Fragment, useContext, useEffect} from 'react'
-import {Card, Container, Spinner} from 'react-bootstrap';
+import {Card, Container, Spinner, Col, Row} from 'react-bootstrap';
 import PostContext from '../../context/post/postContext';
 import AuthContext from '../../context/auth/authContext';
 
-const PostDetail = ({post}) => {
+const PostDetail = (props) => {
     const authContext = useContext(AuthContext);
     const postContext = useContext(PostContext);
-    const {getPosts, loading, posts, getUserPost} = postContext;
-    // const {_id, title, name, date} = post
+    const {loading, post, getUserPost} = postContext;
+
 
     useEffect(() => {
         authContext.loadUser();
-        getUserPost()
+        
+        if(props.post !== null) {
+            getUserPost(props.match.params.id)
+        }
         //eslint-disable-next-line
     }, [])
 
+    if(!post) {
+        return <h4> Post unavailable</h4>
+    }
+
+    if(loading) {
+        return (
+        <Container className='loading'>
+            <Spinner animation='border' size='large' />
+        </Container>
+        )
+    } else {
     return (
         <Container>
-            <h1 style={{color: 'black'}}> </h1>
+            <Row className='mt-5'>
+                <Col>
+                <h6 style={{color: 'black'}}> by Name on {post.date} </h6>
+                </Col>
+            </Row>
+            <Row className='mt-5'>
+                <Col>
+                    <h1>{post.title}</h1>
+                </Col>
+            </Row>
+            <Row className='mt-5'>
+                <Col>
+                    <p>{post.body}</p>
+                </Col>
+            </Row>
         </Container>
     )
+    }
 }
 
 export default PostDetail

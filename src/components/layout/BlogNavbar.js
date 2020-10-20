@@ -22,7 +22,7 @@ const BlogNavbar = () => {
                     </Nav.Link>
                 )}
             
-            <Nav.Link as={Link} to='/'>Profile</Nav.Link>
+            <Nav.Link as={Link} to='/profile'>Profile</Nav.Link>
         </Fragment>
     );
 
@@ -39,7 +39,7 @@ const BlogNavbar = () => {
    
     return (
         <Fragment>
-                <Navbar sticky="top" bg='dark' variant='dark' className='spacer' >
+                <Navbar sticky="top" bg='dark' variant='dark' style={{overflow: 'hidden'}} >
                 <Navbar.Brand as={Link} to='/'>
                         <FontAwesomeIcon  icon={faBookReader} style={{fontSize: '40px'}}/>
                         <h3 style={{display:'inline-block', marginLeft:'10px'}}>Amazing Blog</h3>

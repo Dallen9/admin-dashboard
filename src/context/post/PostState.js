@@ -10,13 +10,14 @@ import {
     POST_ERROR,
     CLEAR_USERS,
     CLEAR_CURRENT,
-    GET_USER_POSTS,
+    GET_USER_POST,
     SET_CURRENT
 } from '../types';
 
 const PostState = props => {
     const initialState = {
         posts:null,
+        post: null,
         current: null,
         loading: true,
         isAuthorized: null,
@@ -55,7 +56,7 @@ const PostState = props => {
                 });
 
                 dispatch({
-                    type: GET_USER_POSTS,
+                    type: GET_USER_POST,
                     payload: res.data
                 })
             } catch (err) {
@@ -158,6 +159,7 @@ const PostState = props => {
         <PostContext.Provider
         value={{
             posts: state.posts,
+            post: state.post,
             current: state.current,
             loading: state.loading,
             error: state.error,
