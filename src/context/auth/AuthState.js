@@ -10,6 +10,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
+    SET_CURRENT,
+    UPDATE_USER
     // CLEAR_ERRORS
 } from '../types';
 
@@ -92,6 +94,36 @@ const AuthState = props => {
             }
         };
 
+           //Update Contact
+    const updateUser = async user => {
+        const token = localStorage.getItem('token')
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+
+        try {
+           const res = await api.put(`auth/update-account/${user._id}`, user, config);
+           loadUser();
+           dispatch({
+               type: UPDATE_USER, 
+               payload: res.data
+           })
+       } catch(err) {
+           dispatch({
+               type: AUTH_ERROR,
+               payload: err.response.msg
+           })
+       }
+    };
+        //Set current user
+        const setCurrent = user => {
+            dispatch({type: SET_CURRENT, payload: user});
+        };
+
         //Logout
         const logout = () => dispatch({type: LOGOUT});
     return (
@@ -102,6 +134,8 @@ const AuthState = props => {
             loading: state.loading,
             error: state.error,
             user: state.user,
+            updateUser,
+            setCurrent,
             register,
             loadUser,
             login,

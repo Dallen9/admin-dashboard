@@ -6,6 +6,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
+    SET_CURRENT,
+    UPDATE_USER
     // CLEAR_ERRORS
 } from '../types';
 
@@ -27,6 +29,13 @@ export default (state, action) => {
                 isAuth: true,
                 loading: false
             };
+        case UPDATE_USER:
+            return {
+                ...state,
+                user: state.user._id === action.payload._id ? action.payload : state.user,
+                loading: false,
+                isAuth: true
+            }
         case REGISTER_FAIL:
         case AUTH_ERROR:
         case LOGIN_FAIL:
@@ -40,6 +49,11 @@ export default (state, action) => {
                 user: null,
                 error: action.payload
             };
+        case SET_CURRENT:
+            return {
+                ...state,
+                user: action.payload
+            }
         // case CLEAR_ERRORS: 
         //     return {
         //         ...state,

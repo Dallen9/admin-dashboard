@@ -12,6 +12,7 @@ import AuthState from './context/auth/AuthState';
 import AdminState from './context/admin/AdminState';
 import PostState from './context/post/PostState';
 import BlogNavbar from './components/layout/BlogNavbar';
+import Profile from './components/pages/Profile';
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
                 <Switch>
                   <PrivateRoute exact path='/' component={Home} />
                   <PrivateRoute exact path='/blog' component={Post}/>
-                  <PrivateRoute exact path='/detail' component={PostDetail}/>
+                  <PrivateRoute exact path='/detail/:id' component={PostDetail}/>
+                  <PrivateRoute exact path='/profile' component={Profile} />
                   <Route exact path='/register' component={Register}/>
                   <Route exact path='/login' component={Login}/>
                 </Switch>
