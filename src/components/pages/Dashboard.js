@@ -12,6 +12,7 @@ const Dashboard = () => {
     const {getUsers, loading, users, deleteUser, clearCurrent} = adminContext;
 
     const [clicked, setClicked] = useState(false);
+    const [userAdded, setUserAdded] = useState(false);
 
     const onDelete =(id) => {
         deleteUser(id)
@@ -21,7 +22,15 @@ const Dashboard = () => {
     const clickedBtn = () => setClicked({clicked: !clicked});  
        
     useEffect(() => {
-        getUsers();
+        if(userAdded){
+            getUsers();
+            setUserAdded(false)
+        }
+        //eslint-disable-next-line
+    }, [users, userAdded]);
+
+    useEffect(() => {
+       getUsers() 
         //eslint-disable-next-line
     }, []);
 
@@ -68,7 +77,7 @@ const Dashboard = () => {
                         ))}
                     </tbody>
                 </Table>
-                {clicked && <UserForm clicked={clicked} /> } 
+                {clicked && <UserForm clicked={clicked} setUserAdded={setUserAdded} /> } 
                 <Button className='add-btn' onClick={clickedBtn} >Add User</Button>
             </Container>
         );

@@ -10,7 +10,7 @@ const Login = (props) => {
     const [validated, setValidated] = useState(false);
 
     const authContext = useContext(AuthContext);
-    const { login, isAuth, error, user } = authContext;
+    const { login, isAuth, error} = authContext;
     
     useEffect(() => {
         if(isAuth) {
@@ -18,7 +18,7 @@ const Login = (props) => {
             props.history.push('/');
         }
         //eslint-disable-next-line
-    }, [ isAuth, props.history, validated]);
+    }, [isAuth, props.history, validated]);
 
     const schema = Yup.object({
         email: Yup.string()

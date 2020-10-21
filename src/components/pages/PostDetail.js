@@ -1,16 +1,13 @@
 import React, {useContext, useEffect} from 'react'
-import {Card, Container, Spinner, Col, Row} from 'react-bootstrap';
+import {Container, Spinner, Col, Row} from 'react-bootstrap';
 import PostContext from '../../context/post/postContext';
-import AuthContext from '../../context/auth/authContext';
 
 const PostDetail = (props) => {
-    const authContext = useContext(AuthContext);
     const postContext = useContext(PostContext);
     const {loading, post, getUserPost} = postContext;
 
 
     useEffect(() => {
-        authContext.loadUser();
         getUserPost(props.match.params.id)
         //eslint-disable-next-line
     }, [])
@@ -19,7 +16,7 @@ const PostDetail = (props) => {
         return <h4> Post unavailable</h4>
     }
 
-    if(loading) {
+    if(loading && post !== null) {
         return (
         <Container className='loading'>
             <Spinner animation='border' size='large' />
@@ -30,17 +27,17 @@ const PostDetail = (props) => {
         <Container>
             <Row className='mt-5'>
                 <Col>
-                <h6 style={{color: 'black'}}> by Name on {post.date} </h6>
+                <h6 style={{color: 'black'}}> by Name on {post && post.date} </h6>
                 </Col>
             </Row>
             <Row className='mt-5'>
                 <Col>
-                    <h1>{post.title}</h1>
+                    <h1>{post && post.title}</h1>
                 </Col>
             </Row>
             <Row className='mt-5'>
                 <Col>
-                    <p>{post.body}</p>
+                    <p>{post && post.body}</p>
                 </Col>
             </Row>
         </Container>

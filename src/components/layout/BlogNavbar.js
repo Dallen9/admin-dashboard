@@ -1,4 +1,4 @@
-import React, {Fragment, useContext} from 'react'
+import React, {Fragment, useContext, useEffect} from 'react'
 import {Navbar, Nav} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faBookReader, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
@@ -8,11 +8,11 @@ import {Link} from 'react-router-dom';
 const BlogNavbar = () => {
     const authContext = useContext(AuthContext);
 
-    const {logout, isAuth, loading, user} = authContext;
+    const {logout, isAuth, loading, user, token, loadUser} = authContext;
 
     const authLinks = (
         <Fragment>
-             {user && user.role === 'super_admin' ? (
+             {user && user.role  === 'super_admin' ? (
             <Nav.Link as={Link} to='/blog'>
                 Stories
                </Nav.Link>
@@ -36,6 +36,12 @@ const BlogNavbar = () => {
             </Nav.Link>
         </Fragment>
     )
+   useEffect(() => {
+    if (token) {
+        loadUser();
+    }
+    // eslint-disable-next-line
+   }, [])
    
     return (
         <Fragment>
@@ -47,7 +53,7 @@ const BlogNavbar = () => {
                 <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
                 <Navbar.Collapse id='responsive-navbar-nav'>
                 <Nav className='ml-auto pr-2'>
-                    {isAuth && !loading ? authLinks : guestLinks}
+                    {isAuth  && !loading ? authLinks : guestLinks}
                 </Nav>
                 <Nav>
                 {isAuth && !loading ? (

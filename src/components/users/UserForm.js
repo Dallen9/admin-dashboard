@@ -4,7 +4,7 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import AdminContext from '../../context/admin/adminContext';
 
-const UserForm = ({clicked}) => {
+const UserForm = ({clicked, setUserAdded}) => {
     const adminContext = useContext(AdminContext);
     const {addUser} = adminContext;
 
@@ -14,10 +14,6 @@ const UserForm = ({clicked}) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const refreshPage = () => {
-        window.location.reload(false);
-      }
-
       useEffect(() => {
           
         if(clicked) {
@@ -25,9 +21,10 @@ const UserForm = ({clicked}) => {
         }
 
         if(validated) {
-            refreshPage();
+            handleClose();
+            setUserAdded(true)
         }
-
+        // eslint-disable-next-line
     }, [validated, clicked])
 
         const schema = Yup.object({

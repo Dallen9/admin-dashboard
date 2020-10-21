@@ -17,7 +17,7 @@ import {
 
 const AuthState = props => {
     const initialState = {
-        token: null,
+        token: localStorage.getItem('token'),
         isAuth: null,
         loading: true,
         user: null,
@@ -25,17 +25,16 @@ const AuthState = props => {
     }
 
     const [state, dispatch] = useReducer(authReducer, initialState);
-
+// 
       //Load user
       const loadUser = async () => {
-   
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        }
         try {
-            const token = localStorage.getItem('token')
-            const res = await api.get('auth', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            const res = await api.get('auth',config);
 
             dispatch({
                  type: USER_LOADED, 
@@ -80,12 +79,13 @@ const AuthState = props => {
                         'Content-Type': 'application/json'
                     }
                 });
+
                 dispatch({
                     type: LOGIN_SUCCESS,
                     payload: res.data
                 });
-    
                 loadUser();
+
             } catch (err) {
                 dispatch({
                     type: LOGIN_FAIL,
@@ -96,12 +96,10 @@ const AuthState = props => {
 
            //Update Contact
     const updateUser = async user => {
-        const token = localStorage.getItem('token')
 
         const config = {
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json'
             }
         }
 

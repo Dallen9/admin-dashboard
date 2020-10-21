@@ -1,18 +1,15 @@
 import React, {useContext, useEffect} from 'react'
 import {Container, Spinner, Row, Col} from 'react-bootstrap';
 import PostContext from '../../context/post/postContext';
-import AuthContext from '../../context/auth/authContext';
-
 import PostItem from '../post/PostItem';
-const Post = () => {
-    const authContext = useContext(AuthContext);
-    const postContext = useContext(PostContext);
-    const {getPosts, loading, posts, getUserPost} = postContext;
 
+const Post = () => {
+    const postContext = useContext(PostContext);
+    const {getPosts, loading, posts} = postContext;
+    
     
     useEffect(() => {
         getPosts();
-        authContext.loadUser();
         //eslint-disable-next-line
     }, [loading]);
 
@@ -44,7 +41,7 @@ const Post = () => {
                         posts.map(post => {
                             return (
                                 <Col key={post._id} md={6} lg={4} className='d-flex flex-column align-items-center'>
-                                    <PostItem post={post} />
+                                    <PostItem key={post._id} post={post} />
                                 </Col>
                             )}
                         )

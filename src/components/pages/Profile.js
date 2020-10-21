@@ -1,22 +1,22 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {Container, Card, Row, Col, Button, Image, Form, FormControl, Toast} from 'react-bootstrap';
+import {Container, Row, Col, Button, Image, Form, Toast} from 'react-bootstrap';
 import AuthContext from '../../context/auth/authContext';
-import {faUser} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import {faUser} from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Profile = () => {
     const authContext = useContext(AuthContext);
 
-    const{loadUser, updateUser, current, user} = authContext;
+    const{updateUser, current, user} = authContext;
 
     const [update, setUpdate] = useState({
         name: '',
         email: '',
-        username: ''
+        username: '',
     });
 
     const [show, setShow] = useState(false);
-    const [error, setError] = useState(false)
+    // const [error, setError] = useState(false)
     const [validated, setValidated] = useState(false);
 
     const onChange = (e) => 
@@ -26,15 +26,16 @@ const Profile = () => {
         }) 
     
 
-    const hasErrors = () => {
-        if(update && update.name === '') {
-            return setError(true)
-        } else if (update && update.email === '') {
-            return setError(true)
-        } else if (update && update.username === '') {
-            return setError(true)
-        }
-    }
+    // const hasErrors = () => {
+    //     if(update && update.name === '') {
+    //         return setError(true)
+    //     } else if (update && update.email === '') {
+    //         return setError(true)
+    //     } else if (update && update.username === '') {
+    //         return setError(true)
+    //     }
+    // }
+
     const onSubmit= (e) => {
         e.preventDefault();
         
@@ -58,23 +59,22 @@ const Profile = () => {
             username: ''
         })
     }
+
     useEffect(() => {
-        loadUser();
-        if(current !== null) {
-            setUpdate(current)
-        } else {
-            setUpdate(user)
-        }
-    }, [current, validated])
+        setUpdate({
+            ...user
+        }) 
+        // eslint-disable-next-line
+    }, [user])
 
     return (
-        <Container noValidate validated={validated} className='my-5'>
+        <Container noValidate  className='my-5'>
             <Row>
                 <Col md={3} className='border-right'>
                     <div className='d-flex flex-column align-items-center text-center p-3 py-5'> 
                     <Image className=" mt-5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQF2psCzfbB611rnUhxgMi-lc2oB78ykqDGYb4v83xQ1pAbhPiB&usqp=CAU" roundedCircle/>
-                        <span class="font-weight-bold">{ user && user.name}</span>
-                        <span class="text-black-50">{user && user.email}</span>
+                        <span className="font-weight-bold">{ user && user.name}</span>
+                        <span className="text-black-50">{user && user.email}</span>
                         <span>{user && user.username} </span>
                     </div>
                 </Col>
@@ -94,8 +94,7 @@ const Profile = () => {
                                    type='text'
                                    name='name'
                                    onChange={onChange}
-                                   value={update && update.name}
-                                   placeholder={user && user.name}
+                                   value={update.name || ''}
                                     required                               
                                    />
                                      <Form.Control.Feedback type='invalid'>
@@ -112,8 +111,7 @@ const Profile = () => {
                                    type='email'
                                    name='email'
                                    onChange={onChange}
-                                   value={update && update.email}
-                                   placeholder={user && user.email}
+                                   value={update.email || ''}
                                     required
                                    />
                                      <Form.Control.Feedback type='invalid'>
@@ -130,8 +128,7 @@ const Profile = () => {
                                    type='text'
                                    name='username'
                                    onChange={onChange}
-                                   value={update && update.username}
-                                   placeholder={user && user.username}
+                                   value={ update.username || ''}
                                    required
                                    />
                                    <Form.Control.Feedback type='invalid'>

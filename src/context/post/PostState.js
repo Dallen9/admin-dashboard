@@ -29,12 +29,7 @@ const PostState = props => {
       //Get all posts
       const getPosts = async () => {
         try {
-            const token = localStorage.getItem('token')
-            const res = await api.get('post', {
-                headers: {
-                    'Authorization' : `Bearer ${token}`
-                }
-            });
+            const res = await api.get('post');
 
             dispatch({
                  type: GET_POSTS, 
@@ -48,12 +43,7 @@ const PostState = props => {
         //get user post with post ID
         const getUserPost = async id => {
             try {
-                const token = localStorage.getItem('token');
-                const res = await api.get(`post/${id}`, {
-                    headers: {
-                        'Authorization' : `Bearer ${token}`
-                    }
-                });
+                const res = await api.get(`post/${id}`);
 
                 dispatch({
                     type: GET_USER_POST,
@@ -71,11 +61,9 @@ const PostState = props => {
         //add post
         const addPost = async formData => {
             try {
-                const token = localStorage.getItem('token')
                 const res = await api.post('admin/post', formData, {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer: ${token}`
                     }
                 });
                 
@@ -96,12 +84,10 @@ const PostState = props => {
         const updatePost = async post => {
          
             try {
-                const token = localStorage.getItem('token')
 
                 const res = await api.put(`post/${post._id}`, post, {
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
+                        'Content-Type': 'application/json'
                     }
                 });
                 dispatch({
@@ -121,13 +107,8 @@ const PostState = props => {
         const deletePost = async id => {
         
             try {
-                const token = localStorage.getItem('token')
 
-                await api.delete(`admin/${id}`,{
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+                await api.delete(`admin/${id}`);
                 dispatch({
                     type: DELETE_POST,
                     payload: id
