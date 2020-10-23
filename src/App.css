@@ -33,7 +33,62 @@ a {
     width: auto;
     height: 200px;
 }
+.rich-editor {
+    border-radius: 5px;
+    border: 1px #ccc solid;
+    padding-bottom: 1rem;
+    
+   }
+.rich-editor a {
+    color: black;
+   }
+.rich-editor a:hover {
+    color: black;
+   }
+.rich-editor .rdw-editor-main {
+    background-color: #fff;
+    padding: 0 1rem;
+   
+   }
+ .rich-editor .DraftEditor-editorContainer {
+     height: 10rem;
+     
+   }
+   .toolbar {
+       border-radius: 5px !important;
+       background-color: #ccc !important;
+       margin-bottom: 0 !important;
+   }
+ /* .Draft-editor-wrapper {
+     margin-bottom: 5px !important;
+ } */
+ .editor-item .draftEditor-editorContainer {
+    font-size: 16px !important;
 
+    /* align-items: center !important; */
+ }
+
+ .draft-editor-wrapper {
+    font-size: 16px !important;
+
+ }
+ 
+ .editor-item {
+     display: flex;
+     justify-content: flex-start;
+     font-size: 16px !important;
+ }
+.editor-item .rdw-editor-main {
+    height: 100% !important;
+
+    /* padding-bottom: 1rem !important; */
+}
+.editor-item .rdw-editor-main body {
+    align-items: center !important;
+
+    font-size: 16px !important;
+}
+ 
  @media(max-width: 600px) {
   .navbar h3{
       font-size: x-large

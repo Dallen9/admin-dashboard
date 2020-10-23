@@ -1,7 +1,7 @@
 import React, {Fragment, useContext, useEffect} from 'react'
-import {Navbar, Nav} from 'react-bootstrap';
+import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faBookReader, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
+import {faBookReader, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
 import AuthContext from '../../context/auth/authContext';
 import {Link} from 'react-router-dom';
 
@@ -21,8 +21,14 @@ const BlogNavbar = () => {
                     Stories
                     </Nav.Link>
                 )}
+            <NavDropdown className='ml-1' title={<FontAwesomeIcon icon={faUser} size='large'/>} id='collapsible-nav-dropdown'>
+                    <NavDropdown.Item  as={Link} to='/profile'>Profile</NavDropdown.Item>
+                    <NavDropdown.Item  as={Link} to='/create-post'>New Story</NavDropdown.Item>
+                    <NavDropdown.Item  as={Link} to='/user-post/:id'>Edit Stories</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item  as={Link} to='/account'>Account</NavDropdown.Item>
+            </NavDropdown>
             
-            <Nav.Link as={Link} to='/profile'>Profile</Nav.Link>
         </Fragment>
     );
 

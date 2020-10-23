@@ -13,7 +13,10 @@ import AdminState from './context/admin/AdminState';
 import PostState from './context/post/PostState';
 import BlogNavbar from './components/layout/BlogNavbar';
 import Profile from './components/pages/Profile';
-
+import NewPost from './components/pages/NewPost';
+import UserPost from './components/pages/UserPost';
+import Account from './components/pages/Account';
+import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 function App() {
   return (
     <AuthState>
@@ -28,6 +31,9 @@ function App() {
                   <PrivateRoute exact path='/blog' component={Post}/>
                   <PrivateRoute exact path='/detail/:id' component={PostDetail}/>
                   <PrivateRoute exact path='/profile' component={Profile} />
+                  <PrivateRoute exact path='/account' component={Account} />
+                  <PrivateRoute exact path='/create-post' component={NewPost} />
+                  <PrivateRoute exact path='/user-posts/:id' component={UserPost} />
                   <Route exact path='/register' component={Register}/>
                   <Route exact path='/login' component={Login}/>
                 </Switch>

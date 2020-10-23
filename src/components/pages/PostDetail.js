@@ -1,11 +1,37 @@
 import React, {useContext, useEffect} from 'react'
 import {Container, Spinner, Col, Row} from 'react-bootstrap';
 import PostContext from '../../context/post/postContext';
+import { EditorState, ContentState } from 'draft-js';
+import htmlToDraft from 'html-to-draftjs';
+import { Editor } from 'react-draft-wysiwyg';
+
 
 const PostDetail = (props) => {
     const postContext = useContext(PostContext);
     const {loading, post, getUserPost} = postContext;
 
+ 
+  const editedBody = (body) => {
+      if(!loading && post) {
+        const blocksFromHtml = htmlToDraft(body);
+        const { contentBlocks, entityMap } = blocksFromHtml;
+        const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+        const editorState = EditorState.createWithContent(contentState);
+          return (
+            <>
+                <Editor
+                    //   wrapperClassName="rich-editor"
+                    //   editorClassName="Draft-editor-wrapper"
+                    editorState={editorState}
+                    editorContent={contentState}
+                    toolbarHidden 
+                    readOnly
+                />
+            </>
+          )
+      }
+
+  }
 
     useEffect(() => {
         getUserPost(props.match.params.id)
@@ -24,20 +50,22 @@ const PostDetail = (props) => {
         )
     } else {
     return (
+        
         <Container>
             <Row className='mt-5'>
                 <Col>
-                <h6 style={{color: 'black'}}> by Name on {post && post.date} </h6>
+                <h1>{post && post.title}</h1>
+                </Col>
+            </Row>
+            <Row className='mt-3 pl-3'>
+                <Col>
+                <small style={{color: 'black'}}> by <strong>Name on</strong> {post && post.date} </small>
+
                 </Col>
             </Row>
             <Row className='mt-5'>
                 <Col>
-                    <h1>{post && post.title}</h1>
-                </Col>
-            </Row>
-            <Row className='mt-5'>
-                <Col>
-                    <p>{post && post.body}</p>
+                        <p>{editedBody(post && post.body)}</p>
                 </Col>
             </Row>
         </Container>

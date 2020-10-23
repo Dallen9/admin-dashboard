@@ -7,7 +7,8 @@ import {
     POST_ERROR,
     CLEAR_POSTS,
     CLEAR_CURRENT,
-    SET_CURRENT
+    SET_CURRENT,
+    GET_USER_POSTS
 } from '../types';
 
 export default (state, action) => {
@@ -24,10 +25,16 @@ export default (state, action) => {
                 post: action.payload,
                 loading: false
             }
+        case GET_USER_POSTS:
+            return{
+                ...state,
+                userPosts: action.payload,
+                loading: false
+            }
         case ADD_POST:
             return {
                 ...state,
-                posts: [action.payload, ...state.posts],
+                posts: [action.payload],
                 isAuthorized: true,
                 loading: false
             }

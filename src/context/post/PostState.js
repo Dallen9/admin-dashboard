@@ -7,6 +7,7 @@ import {
     ADD_POST,
     UPDATE_POST,
     DELETE_POST,
+    GET_USER_POSTS,
     POST_ERROR,
     CLEAR_USERS,
     CLEAR_CURRENT,
@@ -18,6 +19,7 @@ const PostState = props => {
     const initialState = {
         posts:null,
         post: null,
+        userPosts: null,
         current: null,
         loading: true,
         isAuthorized: null,
@@ -58,10 +60,28 @@ const PostState = props => {
            
         }
 
-        //add post
-        const addPost = async formData => {
+        //get app post by a user
+        const getAllUserPosts = async id => {
             try {
-                const res = await api.post('admin/post', formData, {
+                const res = await api.get(`post/user/${id}`);
+
+                dispatch({
+                    type: GET_USER_POSTS,
+                    payload: res.data
+                })
+            } catch (err) {
+                dispatch({
+                    type: POST_ERROR,
+                    payload: err.message
+                });
+            }
+           
+        }
+
+        //add post
+        const addPost = async (formData) => {
+            try {
+                const res = await api.post(`post`, formData, {
                     headers: {
                         'Content-Type': 'application/json',
                     }
@@ -141,11 +161,13 @@ const PostState = props => {
         value={{
             posts: state.posts,
             post: state.post,
+            userPosts: state.userPosts,
             current: state.current,
             loading: state.loading,
             error: state.error,
             getPosts,
             getUserPost,
+            getAllUserPosts,
             addPost,
             updatePost,
             deletePost,
