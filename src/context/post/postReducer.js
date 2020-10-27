@@ -41,17 +41,14 @@ export default (state, action) => {
         case UPDATE_POST:
             return {
                 ...state,
-                posts: state.posts.map(post => 
-                    post._id === action.payload._id ?
-                    action.payload : post
-                ),
+                post: state.post._id === action.payload._id ? action.payload : state.post,
                 loading: false,
                 isAuthorized: true
             }
         case DELETE_POST:
             return {
                 ...state,
-                posts: state.posts.filter(post => 
+                post: state.posts.filter(post =>
                     post._id !== action.payload),
                 loading: false,
                 isAuthorized: true

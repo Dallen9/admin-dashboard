@@ -24,7 +24,7 @@ const BlogNavbar = () => {
             <NavDropdown className='ml-1' title={<FontAwesomeIcon icon={faUser} size='large'/>} id='collapsible-nav-dropdown'>
                     <NavDropdown.Item  as={Link} to='/profile'>Profile</NavDropdown.Item>
                     <NavDropdown.Item  as={Link} to='/create-post'>New Story</NavDropdown.Item>
-                    <NavDropdown.Item  as={Link} to='/user-post/:id'>Edit Stories</NavDropdown.Item>
+                    <NavDropdown.Item  as={Link} to='/user-posts'>Published</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item  as={Link} to='/account'>Account</NavDropdown.Item>
             </NavDropdown>
@@ -47,7 +47,7 @@ const BlogNavbar = () => {
         loadUser();
     }
     // eslint-disable-next-line
-   }, [])
+   }, [token])
    
     return (
         <Fragment>

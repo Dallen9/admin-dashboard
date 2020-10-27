@@ -16,6 +16,7 @@ import Profile from './components/pages/Profile';
 import NewPost from './components/pages/NewPost';
 import UserPost from './components/pages/UserPost';
 import Account from './components/pages/Account';
+import EditPost  from './components/pages/EditPost'
 import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
                   <PrivateRoute exact path='/profile' component={Profile} />
                   <PrivateRoute exact path='/account' component={Account} />
                   <PrivateRoute exact path='/create-post' component={NewPost} />
-                  <PrivateRoute exact path='/user-posts/:id' component={UserPost} />
+                  <PrivateRoute exact path='/user-posts' component={UserPost} />
+                  <PrivateRoute exact path='/user-posts/:id' component={EditPost} />
                   <Route exact path='/register' component={Register}/>
                   <Route exact path='/login' component={Login}/>
                 </Switch>

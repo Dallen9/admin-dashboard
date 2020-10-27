@@ -25,16 +25,17 @@ const AuthState = props => {
     }
 
     const [state, dispatch] = useReducer(authReducer, initialState);
-// 
+
       //Load user
       const loadUser = async () => {
         const config = {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.token}`
             }
         }
+
         try {
-            const res = await api.get('auth',config);
+            const res = await api.get('auth', config);
 
             dispatch({
                  type: USER_LOADED, 
@@ -50,11 +51,7 @@ const AuthState = props => {
         const register = async formData => {
         
             try {
-                const res = await api.post('users', formData, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+                const res = await api.post('users', formData)
                 
                 dispatch({
                     type: REGISTER_SUCCESS,
@@ -74,11 +71,7 @@ const AuthState = props => {
         const login = async formData => {
          
             try {
-                const res = await api.post('auth', formData, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+                const res = await api.post('auth', formData);
 
                 dispatch({
                     type: LOGIN_SUCCESS,
@@ -94,22 +87,17 @@ const AuthState = props => {
             }
         };
 
-           //Update Contact
+           //Update user
     const updateUser = async user => {
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-
         try {
-           const res = await api.put(`auth/update-account/${user._id}`, user, config);
-           loadUser();
+           const res = await api.put(`auth/update-account/${user._id}`, user);
+           
            dispatch({
                type: UPDATE_USER, 
                payload: res.data
            })
+           loadUser();
        } catch(err) {
            dispatch({
                type: AUTH_ERROR,

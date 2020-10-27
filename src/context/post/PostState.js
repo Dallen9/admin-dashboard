@@ -61,9 +61,9 @@ const PostState = props => {
         }
 
         //get app post by a user
-        const getAllUserPosts = async id => {
+        const getAllUserPosts = async () => {
             try {
-                const res = await api.get(`post/user/${id}`);
+                const res = await api.get(`post/user`);
 
                 dispatch({
                     type: GET_USER_POSTS,
@@ -81,11 +81,7 @@ const PostState = props => {
         //add post
         const addPost = async (formData) => {
             try {
-                const res = await api.post(`post`, formData, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
+                const res = await api.post(`post`, formData);
                 
                 dispatch({
                     type: ADD_POST,
@@ -105,11 +101,7 @@ const PostState = props => {
          
             try {
 
-                const res = await api.put(`post/${post._id}`, post, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+                const res = await api.put(`post/${post._id}`, post);
                 dispatch({
                     type: UPDATE_POST,
                     payload: res.data
@@ -127,8 +119,7 @@ const PostState = props => {
         const deletePost = async id => {
         
             try {
-
-                await api.delete(`admin/${id}`);
+                await api.delete(`post/${id}`);
                 dispatch({
                     type: DELETE_POST,
                     payload: id
@@ -146,8 +137,8 @@ const PostState = props => {
   const clearPosts = () => dispatch({ type: CLEAR_USERS});
 
   //Set current contact
-  const setCurrent = user => {
-      dispatch({type: SET_CURRENT, payload: user});
+  const setCurrent = post => {
+      dispatch({type: SET_CURRENT, payload: post});
   };
 
   //Clear current contact

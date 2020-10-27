@@ -1,4 +1,3 @@
-import { cleanup } from '@testing-library/react';
 import React, {useContext, useEffect} from 'react'
 import {Container, Row, Col, Image, Spinner} from 'react-bootstrap';
 import AuthContext from '../../context/auth/authContext';
@@ -8,21 +7,16 @@ import PostItem from '../post/PostItem';
 // import {faUser} from '@fortawesome/free-solid-svg-icons';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Profile = (props) => {
+const Profile = () => {
     const authContext = useContext(AuthContext);
     const postContext = useContext(PostContext)
     
-    const{user, loadUser} = authContext;
+    const{user} = authContext;
     const {getAllUserPosts, loading, userPosts} = postContext;
 
    
     useEffect(() => {
-    
         getAllUserPosts(user && user._id)
-
-        // return function cleanup()  {
-        //     getAllUserPosts(user && user._id)
-        // }
     // eslint-disable-next-line
     }, [loading, user])
 

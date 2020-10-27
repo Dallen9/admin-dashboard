@@ -1,13 +1,13 @@
+import { config } from '@fortawesome/fontawesome-svg-core';
 import axios from 'axios';
 const {REACT_APP_API_URL} = process.env;
 
-let headers = {};
-
-if(localStorage.token) {
-    headers.Authorization = `Bearer ${localStorage.token}`
-}
-
-export default axios.create({
-    baseURL: REACT_APP_API_URL,
-    headers
+const api = axios.create({
+    baseURL: REACT_APP_API_URL
 });
+
+api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+api.defaults.headers.post['Content-Type'] = 'application/json';
+
+
+export default api;

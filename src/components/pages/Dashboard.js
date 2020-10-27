@@ -20,19 +20,15 @@ const Dashboard = () => {
     }
 
     const clickedBtn = () => setClicked({clicked: !clicked});  
-       
+    
     useEffect(() => {
-        if(userAdded){
-            getUsers();
+        if(userAdded) {
             setUserAdded(false)
-        }
+           } 
+            getUsers()
+           
         //eslint-disable-next-line
-    }, [users, userAdded]);
-
-    useEffect(() => {
-       getUsers() 
-        //eslint-disable-next-line
-    }, []);
+    }, [userAdded]);
 
     if (loading) {
         return (

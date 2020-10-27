@@ -20,7 +20,7 @@ const AdminState = props => {
         current: null,
         isAuthorized: false,
         loading: true,
-        error: null
+        error: null,
     }
 
     const [state, dispatch] = useReducer(adminReducer, initialState);
@@ -28,12 +28,7 @@ const AdminState = props => {
       //Get all users
       const getUsers = async () => {
         try {
-            const token = localStorage.getItem('token')
-            const res = await api.get('admin', {
-                headers: {
-                    'Authorization' : `Bearer ${token}`
-                }
-            });
+            const res = await api.get('admin');
 
             dispatch({
                  type: GET_USERS, 
@@ -48,13 +43,7 @@ const AdminState = props => {
         const addUser = async formData => {
         
             try {
-                const token = localStorage.getItem('token')
-                const res = await api.post('admin/create-user', formData, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer: ${token}`
-                    }
-                });
+                const res = await api.post('admin/create-user', formData);
                 
                 dispatch({
                     type: ADD_USER,
@@ -73,14 +62,8 @@ const AdminState = props => {
         const updateUser = async user => {
          
             try {
-                const token = localStorage.getItem('token')
 
-                const res = await api.put(`admin/${user._id}`, user, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+                const res = await api.put(`admin/${user._id}`, user);
                 dispatch({
                     type: UPDATE_USER,
                     payload: res.data
@@ -98,13 +81,7 @@ const AdminState = props => {
         const deleteUser = async id => {
         
             try {
-                const token = localStorage.getItem('token')
-
-                await api.delete(`admin/${id}`,{
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+                await api.delete(`admin/${id}`);
                 dispatch({
                     type: DELETE_USER,
                     payload: id
@@ -131,7 +108,6 @@ const AdminState = props => {
       dispatch({type: CLEAR_CURRENT});
   };
 
-      
     return (
         <AdminContext.Provider
         value={{

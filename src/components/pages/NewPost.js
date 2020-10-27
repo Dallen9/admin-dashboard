@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {Container, Row, Col, Button, Card, Form} from 'react-bootstrap';
-import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';	
+import { EditorState, convertToRaw } from 'draft-js';	
 import { Editor } from 'react-draft-wysiwyg';
 import AuthContext from '../../context/auth/authContext';
 import PostContext from '../../context/post/postContext';
@@ -48,11 +48,9 @@ const NewPost = () => {
 
         if(post.title !== '' && post.body !== '') {
             addPost(post)
-            console.log(post)
             setPost({title: ''})
             setEditorState(EditorState.createEmpty());
             setValidated(true)
-
         } 
     }
   
