@@ -14,7 +14,7 @@ const EditPost = (props) => {
     const [update, setUpdate] = useState({
         
         title: '',
-        body: current && current.body || ''
+        body: current && current.body || props.location.state.body
     });
 
     const [validated, setValidated] = useState(false);
@@ -55,7 +55,7 @@ const EditPost = (props) => {
 
    const onSubmit =(e) => {
        e.preventDefault()
-       if(current !== null) {
+       if(post !== null) {
         updatePost(update)   
         setValidated(true)
         props.history.go(2)
@@ -74,8 +74,15 @@ const EditPost = (props) => {
        if(current !== null) {
         getUserPost(props.match.params.id)
         setUpdate(current) 
-       } 
-       
+       }  else {
+           getUserPost(props.match.params.id)
+           setUpdate(props.location.state)
+       }
+
+       return () => {
+        getUserPost(props.match.params.id)
+       }
+     // eslint-disable-next-line 
 }, [validated, current, loading])
 
 if(post !== null && loading) {

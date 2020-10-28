@@ -6,7 +6,7 @@ import AuthContext from '../../context/auth/authContext';
 const Account = () => {
     const authContext = useContext(AuthContext);
 
-    const{updateUser, current, user} = authContext;
+    const{updateUser,  user} = authContext;
 
     const [update, setUpdate] = useState({
         name: '',
@@ -15,7 +15,6 @@ const Account = () => {
     });
 
     const [show, setShow] = useState(false);
-    // const [error, setError] = useState(false)
     const [validated, setValidated] = useState(false);
 
     const onChange = (e) => 
@@ -27,25 +26,12 @@ const Account = () => {
     const onSubmit= (e) => {
         e.preventDefault();
         
-           
-        const form = e.currentTarget;
-        if (form.checkValidity() === false) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-        
-        if (current !== null ) {
+        if (update !== null) {
             updateUser(update)
             setShow(true);
-        }
+            setValidated(true);
+        } 
        
-        setValidated(true);
-
-        setUpdate({
-            name: '',
-            email: '',
-            username: ''
-        })
     }
 
     useEffect(() => {

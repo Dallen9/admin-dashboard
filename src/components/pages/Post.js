@@ -10,21 +10,20 @@ const Post = () => {
     
     useEffect(() => {
         getPosts();
+
+        return () => {
+           getPosts()
+        }
         //eslint-disable-next-line
-    }, [loading]);
+    }, []);
 
     if(posts !== null && posts.length === 0 && !loading) {
         return <h4>No post available...</h4>
     }
 
-    if(loading) {
+ 
         return (
-            <Container className='loading'>
-                <Spinner animation='border' size='large' />
-            </Container>
-        )
-    } else {
-        return (
+            <>
             <Container className='mt-5'>
                 <Row >
                     <Col xs className='d-flex justify-flex-start '>
@@ -51,8 +50,9 @@ const Post = () => {
                     } 
                 </Row>
             </Container>
+            </>
         )
-    }
+    
 }
 
 export default Post

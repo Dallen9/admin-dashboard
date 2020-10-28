@@ -17,6 +17,10 @@ const Profile = () => {
    
     useEffect(() => {
         getAllUserPosts(user && user._id)
+
+        return () => {
+            getAllUserPosts(user && user._id)
+        }
     // eslint-disable-next-line
     }, [loading, user])
 

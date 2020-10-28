@@ -11,8 +11,8 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     SET_CURRENT,
-    UPDATE_USER
-    // CLEAR_ERRORS
+    UPDATE_USER,
+    CLEAR_ERRORS
 } from '../types';
 
 const AuthState = props => {
@@ -62,7 +62,7 @@ const AuthState = props => {
             } catch (err) {
                 dispatch({
                     type: REGISTER_FAIL,
-                    payload: err.message
+                    payload: err.response.status
                 });
             }
         };
@@ -82,7 +82,7 @@ const AuthState = props => {
             } catch (err) {
                 dispatch({
                     type: LOGIN_FAIL,
-                    payload: err.response.msg
+                    payload: err.response.status
                 });
             }
         };
@@ -110,6 +110,9 @@ const AuthState = props => {
             dispatch({type: SET_CURRENT, payload: user});
         };
 
+        const clearErrors = () => dispatch({type: CLEAR_ERRORS})
+
+
         //Logout
         const logout = () => dispatch({type: LOGOUT});
     return (
@@ -125,7 +128,8 @@ const AuthState = props => {
             register,
             loadUser,
             login,
-            logout
+            logout,
+            clearErrors
         }}
         >
             {props.children}

@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom';
 const BlogNavbar = () => {
     const authContext = useContext(AuthContext);
 
-    const {logout, isAuth, loading, user, token, loadUser} = authContext;
+    const {logout, loading, user, token, loadUser} = authContext;
 
     const authLinks = (
         <Fragment>
@@ -21,7 +21,7 @@ const BlogNavbar = () => {
                     Stories
                     </Nav.Link>
                 )}
-            <NavDropdown className='ml-1' title={<FontAwesomeIcon icon={faUser} size='large'/>} id='collapsible-nav-dropdown'>
+            <NavDropdown className='ml-1' title={<FontAwesomeIcon icon={faUser} size='lg'/>} id='collapsible-nav-dropdown'>
                     <NavDropdown.Item  as={Link} to='/profile'>Profile</NavDropdown.Item>
                     <NavDropdown.Item  as={Link} to='/create-post'>New Story</NavDropdown.Item>
                     <NavDropdown.Item  as={Link} to='/user-posts'>Published</NavDropdown.Item>
@@ -47,7 +47,7 @@ const BlogNavbar = () => {
         loadUser();
     }
     // eslint-disable-next-line
-   }, [token])
+   }, [])
    
     return (
         <Fragment>
@@ -59,10 +59,10 @@ const BlogNavbar = () => {
                 <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
                 <Navbar.Collapse id='responsive-navbar-nav'>
                 <Nav className='ml-auto pr-2'>
-                    {isAuth  && !loading ? authLinks : guestLinks}
+                    {token  && !loading ? authLinks : guestLinks}
                 </Nav>
                 <Nav>
-                {isAuth && !loading ? (
+                {token && !loading ? (
                 <Nav.Link as={Link} to='/'className='d-flex align-items-center' onClick={logout}>
                 <FontAwesomeIcon  icon={faSignOutAlt} size='lg' color='white'/> 
                 <h6 className='my-auto ml-1 text-white'>Logout</h6> 

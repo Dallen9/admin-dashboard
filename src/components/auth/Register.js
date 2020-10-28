@@ -1,25 +1,39 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {Card, Form, Container, Button, Row, Col} from 'react-bootstrap';
+import {Card, Form, Container, Button, Row, Col , Alert} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import AuthContext from '../../context/auth/authContext';
 import {Link} from 'react-router-dom';
 
 const Register = (props) => {
-    const [validated, setValidated] = useState(false);
 
     const authContext = useContext(AuthContext);
-    const { register, isAuth } = authContext;
+    const { register, token, error, clearErrors } = authContext;
+    const [show, setShow] = useState(true);
 
 
+    const handleErr = () => {
+        return ( 
+       <div className='text-center mb-0'>
+         <Alert style={{height: '3rem'}} variant="danger" onClose={() => setShow(false)}>
+          <small>Username or email already exist</small>
+        </Alert>
+        </div> 
+       )
+    }
     useEffect(() => {
-        if(isAuth) {
+        if(token) {
             //redirect
             props.history.push('/');
         }
-        //eslint-disable-next-line
-    }, [ isAuth, props.history]);
 
+      if(error === null) {
+          clearErrors();
+      }
+        //eslint-disable-next-line
+    }, [token, props.history, error]);
+
+  
     const schema = Yup.object({
         username: Yup.string()
         .required('Username is required')
@@ -49,9 +63,12 @@ const Register = (props) => {
                 <Card.Body>
                     <Formik
                         validationSchema={schema}
-                        onSubmit={values => {
-                            setValidated(true)
-                            register(values)
+                        onSubmit={(values, actions)=> {         
+                            setTimeout( () => {
+                                register(values)
+                                actions.setSubmitting(false)
+                            
+                            }, 1)
                         }}
                         initialValues={{
                             username: '',
@@ -60,15 +77,20 @@ const Register = (props) => {
                             password: '',
                             role: ''
                         }}
+                        validateOnChange={true}
+                        validateOnBlur={true}
                     >
                     {({
                         handleSubmit,
                         handleChange,
+                        handleBlur,
+                        isSubmitting,
                         values,
                         touched,
                         errors,
                     }) => (
-                        <Form  noValidate validated={validated} onSubmit={handleSubmit}> 
+                        <Form onSubmit={handleSubmit}>
+                            {error  && error === 400 || error === 403  && show ? handleErr() : null}
                             <Form.Group>
                                 <Form.Label>Username</Form.Label>
                                 <Form.Control
@@ -76,7 +98,8 @@ const Register = (props) => {
                                     name='username'
                                     values={values.username}
                                     onChange={handleChange}
-                                    isInvalid={!!errors.username && touched.username}
+                                    onBlur={handleBlur}
+                                    isInvalid={errors.username && touched.username}
                                 />
                                 <Form.Control.Feedback type='invalid'>
                                     {errors.username}
@@ -89,7 +112,8 @@ const Register = (props) => {
                                     name='name'
                                     values={values.name}
                                     onChange={handleChange}
-                                    isInvalid={!!errors.name && touched.name}
+                                    onBlur={handleBlur}
+                                    isInvalid={errors.name && touched.name}
                                 />
                                 <Form.Control.Feedback type='invalid'>
                                     {errors.name}
@@ -102,7 +126,8 @@ const Register = (props) => {
                                     name='email'
                                     values={values.email}
                                     onChange={handleChange}
-                                    isInvalid={!!errors.email && touched.email}
+                                    onBlur={handleBlur}
+                                    isInvalid={errors.email && touched.email}
                                 />
                                 <Form.Control.Feedback type='invalid'>
                                     {errors.email}
@@ -116,7 +141,8 @@ const Register = (props) => {
                                     placeholder='Must have at least 6 characters'
                                     values={values.password}
                                     onChange={handleChange}
-                                    isInvalid={!!errors.password && touched.password}
+                                    onBlur={handleBlur}
+                                    isInvalid={errors.password && touched.password}
                                 />
                                 <Form.Control.Feedback type='invalid'>
                                     {errors.password}
@@ -130,8 +156,9 @@ const Register = (props) => {
                                         name='role'
                                         values={values.role}
                                         onChange={handleChange} 
+                                        onBlur={handleBlur}
                                         as="select"
-                                        isInvalid={!!errors.role && touched.role}
+                                        isInvalid={errors.role && touched.role}
                                         custom
                                     >
                                         <option>Please Select</option>
@@ -142,7 +169,7 @@ const Register = (props) => {
                                     {errors.role}
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            <Button variant="primary" block type="submit">Sign Up</Button>
+                            <Button variant="primary" block type="submit" disabled={isSubmitting}>Sign Up</Button>
                         </Form>
                         )}
                     </Formik>

@@ -1,19 +1,15 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext} from 'react'
 import AuthContext from '../../context/auth/authContext';
 import Dashboard from '../pages/Dashboard';
 import Post from './Post';
 
 const Home = () => {
     const authContext = useContext(AuthContext);
-    const {user, loading} = authContext;
-
-useEffect(() => {
-    authContext.loadUser()
-}, [loading])
+    const {user} = authContext;
 
     return (
         <div>
-            {user && user.role === 'super_admin'  && !loading ? <Dashboard /> : <Post />}
+            {user && user.role === 'super_admin' ? <Dashboard /> : <Post />}
         </div>
     )
 }

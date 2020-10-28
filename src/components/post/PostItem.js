@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React from 'react'
 import {Card} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import stock from '../../assets/stock.jpg';
@@ -17,9 +17,9 @@ const PostItem = ({post}) => {
     const editorState = EditorState.createWithContent(contentState);
     
     return (
-       
+       <>
         <Card key={post._id} className='mb-5' style={{height: '26rem'}}  >
-            <Link  style={{color: 'black', height: '100%'}} to={'/detail/' + post._id} >
+            <Link style={{color: 'black', height: '100%'}} to={'/detail/' + post._id} >
             <Card.Img variant= 'top' className='card-img' src={stock} alt='stock'/>
             <Card.Body>
             <h5>{truncate(post.title, 36)}</h5>
@@ -38,7 +38,7 @@ const PostItem = ({post}) => {
             </Card.Body>
             </Link>
         </Card>   
-                
+         </>       
     )
 }
 

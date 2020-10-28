@@ -1,22 +1,14 @@
-import React, {useContext, useEffect, useState} from 'react'
-import {Container, Row, Col, Image, Spinner, Card, Button} from 'react-bootstrap';
-import AuthContext from '../../context/auth/authContext';
+import React, {useContext, useEffect} from 'react'
+import {Container, Row, Col, Spinner, Card, Button} from 'react-bootstrap';
 import PostContext from '../../context/post/postContext';
 import stock from '../../assets/stock.jpg';
 import { Link } from 'react-router-dom';
 
-const UserPost = (props) => {
-    const authContext = useContext(AuthContext);
+const UserPost = () => {
     const postContext = useContext(PostContext)
     
-    const{user} = authContext;
     const {getAllUserPosts, loading, userPosts, deletePost, setCurrent, clearCurrent, post} = postContext;
 
-    const [clicked, setClicked] = useState(false)
-
-    const clickedBtn = () => {
-        setClicked({clicked: !clicked})
-    }; 
     const truncate = (post, size) => {
         return post.length > size ? post.slice(0, size - 1) + "…" : post;
     }
@@ -28,9 +20,9 @@ const UserPost = (props) => {
 
     useEffect(() => {
         getAllUserPosts()
-        
+
         //eslint-disable-next-line
-    }, [loading, user, post, props])
+    }, [loading, post])
 
     return (
         <>
@@ -63,7 +55,10 @@ const UserPost = (props) => {
                                         <h6 style={{textTransform: 'capitalize', marginBottom: '0 !important'}}>By {post.user.name}</h6>
                                          <Row className='mt-3 d-flex'>
                                              <Col className='d-flex  flex-column'>
-                                                <Link className='d-flex flex-column' id={post._id} to={'/user-posts/' + post._id}> 
+                                                <Link className='d-flex flex-column' id={post._id} to={{
+                                                    pathname: '/user-posts/' + post._id,
+                                                    state: post
+                                                    }}> 
                                              <Button className='px-4' onClick={() => setCurrent(post)} >Edit</Button>
                                              </Link> 
                                              </Col>

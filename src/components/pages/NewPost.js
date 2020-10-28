@@ -1,25 +1,20 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useState} from 'react'
 import {Container, Row, Col, Button, Card, Form} from 'react-bootstrap';
 import { EditorState, convertToRaw } from 'draft-js';	
 import { Editor } from 'react-draft-wysiwyg';
-import AuthContext from '../../context/auth/authContext';
 import PostContext from '../../context/post/postContext';
 import draftToMarkdown from 'draftjs-to-markdown';
 
 const NewPost = () => {
  
-    const authContext = useContext(AuthContext);
     const postContext = useContext(PostContext);
 
     const {addPost} = postContext;
-    const{user} = authContext;
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [post, setPost] = useState({
         title: '',
         body: ''
     });
-
-    const [validated, setValidated] = useState(false);
     
 
     const onEditorStateChange = editorState => {
@@ -50,7 +45,6 @@ const NewPost = () => {
             addPost(post)
             setPost({title: ''})
             setEditorState(EditorState.createEmpty());
-            setValidated(true)
         } 
     }
   
