@@ -25,15 +25,13 @@ const Login = (props) => {
   
     useEffect(() => {
         if(successLogin) {
-            if(error){
-                clearErrors()
-            }
+            clearErrors()
             //redirect
             props.history.push('/');
         }
 
         //eslint-disable-next-line
-    }, [successLogin]);
+    }, [successLogin, props.history]);
 
 
 

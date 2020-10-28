@@ -34,7 +34,7 @@ const Register = (props) => {
         }
 
         //eslint-disable-next-line
-    }, [successfulRegistration, error]);
+    }, [successfulRegistration, error, props.history]);
 
   
     const schema = Yup.object({
