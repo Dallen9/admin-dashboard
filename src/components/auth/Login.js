@@ -11,6 +11,7 @@ const Login = (props) => {
     const authContext = useContext(AuthContext);
     const { login, isAuth, error, clearErrors} = authContext;
     const [show, setShow] = useState(true);
+    const [successLogin, setLogin] = useState(false);
 
     const handleErr = () => {
         return ( 
@@ -23,7 +24,7 @@ const Login = (props) => {
     }
   
     useEffect(() => {
-        if(isAuth) {
+        if(successLogin) {
             //redirect
             props.history.push('/');
         }
@@ -32,7 +33,7 @@ const Login = (props) => {
             clearErrors()
         }
         //eslint-disable-next-line
-    }, [isAuth, props.history, error]);
+    }, [successLogin]);
 
   
     const schema = Yup.object({
@@ -60,7 +61,7 @@ const Login = (props) => {
                     validationSchema={schema}
                    onSubmit={(values, actions) => {
                     setTimeout(() => {
-                        login(values)
+                        setLogin(login(values))
                         actions.setSubmitting(false)
                     }, 5)
                     }}

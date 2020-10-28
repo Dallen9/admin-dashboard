@@ -57,13 +57,14 @@ const AuthState = props => {
                     type: REGISTER_SUCCESS,
                     payload: res.data
                 });
-    
-                loadUser();
+                return true
+                // loadUser();
             } catch (err) {
                 dispatch({
                     type: REGISTER_FAIL,
                     payload: err.response.status
                 });
+                return false
             }
         };
 
@@ -78,12 +79,14 @@ const AuthState = props => {
                     payload: res.data
                 });
                 loadUser();
+                return true
 
             } catch (err) {
                 dispatch({
                     type: LOGIN_FAIL,
                     payload: err.response.status
                 });
+                return false
             }
         };
 

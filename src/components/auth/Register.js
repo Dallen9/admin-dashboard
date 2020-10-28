@@ -9,6 +9,7 @@ const Register = (props) => {
 
     const authContext = useContext(AuthContext);
     const { register, token, error, clearErrors } = authContext;
+    const [successfulRegistration, setRegistration] = useState(false);
     const [show, setShow] = useState(true);
 
 
@@ -21,17 +22,20 @@ const Register = (props) => {
         </div> 
        )
     }
+
     useEffect(() => {
-        if(token) {
-            //redirect
-            props.history.push('/');
+        if(error === null) {
+            clearErrors();
         }
 
-      if(error === null) {
-          clearErrors();
-      }
+        if(successfulRegistration) {
+            //redirect
+            props.history.push('/login');
+        }
+
         //eslint-disable-next-line
-    }, [token, props.history, error]);
+    }, [successfulRegistration, props.history, error]);
+
 
   
     const schema = Yup.object({
@@ -65,7 +69,7 @@ const Register = (props) => {
                         validationSchema={schema}
                         onSubmit={(values, actions)=> {         
                             setTimeout( () => {
-                                register(values)
+                                setRegistration(register(values))
                                 actions.setSubmitting(false)
                             
                             }, 1)
