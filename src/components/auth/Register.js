@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom';
 const Register = (props) => {
 
     const authContext = useContext(AuthContext);
-    const { register, token, error, clearErrors } = authContext;
+    const { register, error, clearErrors } = authContext;
     const [successfulRegistration, setRegistration] = useState(false);
     const [show, setShow] = useState(true);
 
@@ -68,7 +68,8 @@ const Register = (props) => {
                         validationSchema={schema}
                         onSubmit={(values, actions)=> {         
                             setTimeout( () => {
-                                setRegistration(register(values))
+                                register(values)
+                                setRegistration(true)
                                 actions.setSubmitting(false)
                             
                             }, 1)

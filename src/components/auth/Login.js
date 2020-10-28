@@ -61,7 +61,8 @@ const Login = (props) => {
                     validationSchema={schema}
                    onSubmit={(values, actions) => {
                     setTimeout(() => {
-                        setLogin(login(values))
+                        login(values)
+                        setLogin(true)
                         actions.setSubmitting(false)
                     }, 5)
                     }}
