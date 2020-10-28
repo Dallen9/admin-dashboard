@@ -10,10 +10,6 @@ const Post = () => {
     
     useEffect(() => {
         getPosts();
-
-        return () => {
-           getPosts()
-        }
         //eslint-disable-next-line
     }, []);
 

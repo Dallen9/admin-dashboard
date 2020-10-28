@@ -79,9 +79,6 @@ const EditPost = (props) => {
            setUpdate(props.location.state)
        }
 
-       return () => {
-        getUserPost(props.match.params.id)
-       }
      // eslint-disable-next-line 
 }, [validated, current, loading])
 
