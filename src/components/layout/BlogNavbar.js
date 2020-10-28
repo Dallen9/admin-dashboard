@@ -43,11 +43,11 @@ const BlogNavbar = () => {
         </Fragment>
     )
    useEffect(() => {
-    if (token) {
+    if (isAuth) {
         loadUser();
     }
     // eslint-disable-next-line
-   }, [])
+   }, [isAuth])
    
     return (
         <Fragment>
