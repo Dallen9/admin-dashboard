@@ -29,11 +29,17 @@ const Login = (props) => {
             props.history.push('/');
         }
 
+        //eslint-disable-next-line
+    }, [successLogin]);
+
+    useEffect(() => {
+
         if(error === null) {
             clearErrors()
         }
         //eslint-disable-next-line
-    }, [successLogin]);
+    }, [error]);
+
 
   
     const schema = Yup.object({
