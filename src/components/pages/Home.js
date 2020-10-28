@@ -1,16 +1,26 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import AuthContext from '../../context/auth/authContext';
+import AdminContext from '../../context/admin/adminContext';
 import Dashboard from '../pages/Dashboard';
 import Post from './Post';
 
 const Home = () => {
     const authContext = useContext(AuthContext);
-    const {user} = authContext;
+    const {user, isAuth, loading} = authContext;
+    useEffect(() => {
+       if(!user && isAuth) {
+        authContext.loadUser()
+
+       }
+       
+        
+    }, [authContext, user, isAuth])
 
     return (
-        <div>
-            {user && user.role === 'super_admin' ? <Dashboard /> : <Post />}
-        </div>
+        <>
+            {user && user.role === 'super_admin' && <Dashboard /> }
+            {user && user.role !== 'super_admin' && <Post />}
+        </>
     )
 }
 

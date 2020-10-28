@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react'
+import React, {Fragment, useContext, useEffect} from 'react'
 import {Container, Spinner, Row, Col} from 'react-bootstrap';
 import PostContext from '../../context/post/postContext';
 import PostItem from '../post/PostItem';
@@ -9,7 +9,7 @@ const Post = () => {
     
     
     useEffect(() => {
-        getPosts();
+            getPosts();
         //eslint-disable-next-line
     }, []);
 
@@ -19,7 +19,7 @@ const Post = () => {
 
  
         return (
-            <>
+            <Fragment>
             <Container className='mt-5'>
                 <Row >
                     <Col xs className='d-flex justify-flex-start '>
@@ -46,7 +46,7 @@ const Post = () => {
                     } 
                 </Row>
             </Container>
-            </>
+            </Fragment>
         )
     
 }

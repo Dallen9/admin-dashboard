@@ -8,7 +8,6 @@ const UserForm = ({clicked, setUserAdded}) => {
     const adminContext = useContext(AdminContext);
     const {addUser} = adminContext;
 
-    const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -20,12 +19,8 @@ const UserForm = ({clicked, setUserAdded}) => {
             handleShow();
         }
 
-        if(validated) {
-            handleClose();
-            setUserAdded(true)
-        }
         // eslint-disable-next-line
-    }, [validated, clicked])
+    }, [clicked, setUserAdded])
 
         const schema = Yup.object({
             username: Yup.string()
@@ -58,9 +53,13 @@ const UserForm = ({clicked, setUserAdded}) => {
           </Modal.Header>
           <Formik
                             validationSchema={schema}
-                            onSubmit={(values)=> {
-                                setValidated(true)
-                                addUser(values)
+                            onSubmit={(values, actions)=> {
+                                setTimeout(() => {
+                                    addUser(values)
+                                    setUserAdded(true)
+                                    actions.setSubmitting(false)
+                                    handleClose();
+                                }, 5)  
                             }}
                             initialValues={{
                                 username: '',
@@ -75,10 +74,11 @@ const UserForm = ({clicked, setUserAdded}) => {
                             handleChange,
                             values,
                             touched,
+                            isSubmitting,
                             errors
                         }) => (
 
-                            <Form  noValidate validated={validated} onSubmit={handleSubmit}> 
+                            <Form  onSubmit={handleSubmit}> 
                                 <Modal.Body>
                                 <Form.Group>
                                     <Form.Label>Username</Form.Label>
@@ -155,7 +155,7 @@ const UserForm = ({clicked, setUserAdded}) => {
                                 </Form.Group>
                                 </Modal.Body>
                                 <ModalFooter>
-                                <Button variant="primary" block type="submit" >Create user</Button>
+                                <Button variant="primary" block type="submit" disabled={isSubmitting} >Create user</Button>
                                 </ModalFooter>
                             </Form>
                             )}

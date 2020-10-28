@@ -12,7 +12,7 @@ const BlogNavbar = () => {
 
     const authLinks = (
         <Fragment>
-             {user && user.role  === 'super_admin' ? (
+             {user && user.role  === 'super_admin'  ? (
             <Nav.Link as={Link} to='/blog'>
                 Stories
                </Nav.Link>

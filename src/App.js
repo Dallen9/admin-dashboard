@@ -25,8 +25,8 @@ function App() {
         <PostState>
           <Router >
           <BlogNavbar />
-              <Fragment >
               <div className="App">
+              <Fragment >
                 <Switch>
                   <PrivateRoute exact path='/' component={Home} />
                   <PrivateRoute exact path='/blog' component={Post}/>
@@ -39,8 +39,8 @@ function App() {
                   <Route exact path='/register' component={Register}/>
                   <Route exact path='/login' component={Login}/>
                 </Switch>
+                </Fragment>
                 </div>
-              </Fragment>
           </Router>
         </PostState>
       </AdminState>

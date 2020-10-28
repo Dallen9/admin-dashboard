@@ -24,11 +24,12 @@ const Dashboard = () => {
     useEffect(() => {
         if(userAdded) {
             setUserAdded(false)
+            setClicked(false)
            } 
             getUsers()
            
         //eslint-disable-next-line
-    }, [userAdded]);
+    }, [userAdded, clicked]);
 
     if (loading) {
         return (
@@ -65,15 +66,15 @@ const Dashboard = () => {
                                     </Link>
                                 </td>
                                 <td style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-                                    <a href='/' onClick={() => onDelete(user._id)} >
-                                    <FontAwesomeIcon   icon={faTrash} style={{ color: 'red'}} />
+                                    <a href='#'>
+                                    <FontAwesomeIcon onClick={() => onDelete(user._id)}  icon={faTrash} style={{ color: 'red'}} />
                                     </a>                                    
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </Table>
-                {clicked && <UserForm clicked={clicked} setUserAdded={setUserAdded} /> } 
+                {clicked && <UserForm  clicked={clicked} setUserAdded={setUserAdded} /> } 
                 <Button className='add-btn' onClick={clickedBtn} >Add User</Button>
             </Container>
         );

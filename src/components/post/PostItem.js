@@ -18,7 +18,7 @@ const PostItem = ({post}) => {
     
     return (
        <>
-        <Card key={post._id} className='mb-5' style={{height: '26rem'}}  >
+        <Card key={post._id} className='mb-5' style={{height: '26rem', width: '350px'}}  >
             <Link style={{color: 'black', height: '100%'}} to={'/detail/' + post._id} >
             <Card.Img variant= 'top' className='card-img' src={stock} alt='stock'/>
             <Card.Body>
