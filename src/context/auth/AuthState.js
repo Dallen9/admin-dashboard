@@ -10,12 +10,14 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    // CLEAR_ERRORS
+    SET_CURRENT,
+    UPDATE_USER,
+    CLEAR_ERRORS
 } from '../types';
 
 const AuthState = props => {
     const initialState = {
-        token: null,
+        token: localStorage.getItem('token'),
         isAuth: null,
         loading: true,
         user: null,
@@ -26,14 +28,14 @@ const AuthState = props => {
 
       //Load user
       const loadUser = async () => {
-   
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${localStorage.token}`
+            }
+        }
+
         try {
-            const token = localStorage.getItem('token')
-            const res = await api.get('auth', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            const res = await api.get('auth', config);
 
             dispatch({
                  type: USER_LOADED, 
@@ -49,11 +51,7 @@ const AuthState = props => {
         const register = async formData => {
         
             try {
-                const res = await api.post('users', formData, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+                const res = await api.post('users', formData)
                 
                 dispatch({
                     type: REGISTER_SUCCESS,
@@ -64,7 +62,7 @@ const AuthState = props => {
             } catch (err) {
                 dispatch({
                     type: REGISTER_FAIL,
-                    payload: err.message
+                    payload: err.response.status
                 });
             }
         };
@@ -73,24 +71,47 @@ const AuthState = props => {
         const login = async formData => {
          
             try {
-                const res = await api.post('auth', formData, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+                const res = await api.post('auth', formData);
+
                 dispatch({
                     type: LOGIN_SUCCESS,
                     payload: res.data
                 });
-    
                 loadUser();
+
             } catch (err) {
                 dispatch({
                     type: LOGIN_FAIL,
-                    payload: err.message
+                    payload: err.response.status
                 });
             }
         };
+
+           //Update user
+    const updateUser = async user => {
+
+        try {
+           const res = await api.put(`auth/update-account/${user._id}`, user);
+           
+           dispatch({
+               type: UPDATE_USER, 
+               payload: res.data
+           })
+           loadUser();
+       } catch(err) {
+           dispatch({
+               type: AUTH_ERROR,
+               payload: err.response.msg
+           })
+       }
+    };
+        //Set current user
+        const setCurrent = user => {
+            dispatch({type: SET_CURRENT, payload: user});
+        };
+
+        const clearErrors = () => dispatch({type: CLEAR_ERRORS})
+
 
         //Logout
         const logout = () => dispatch({type: LOGOUT});
@@ -102,10 +123,13 @@ const AuthState = props => {
             loading: state.loading,
             error: state.error,
             user: state.user,
+            updateUser,
+            setCurrent,
             register,
             loadUser,
             login,
-            logout
+            logout,
+            clearErrors
         }}
         >
             {props.children}

@@ -1,46 +1,40 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Card, Form, Container, Button} from 'react-bootstrap';
+import {Card, Form, Container, Button, Row, Col, Alert} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import AuthContext from '../../context/auth/authContext';
+import {Link} from 'react-router-dom';
 
 
 const Login = (props) => {
-    const [validated, setValidated] = useState(false);
-    // const [user, setUser] = useState({
-    //     email:'',
-    //     password:''
-    // });
-    // const { email, password } = user;
 
     const authContext = useContext(AuthContext);
-    const { login, isAuth } = authContext;
-    // const onChange = e => setUser({...user, [e.target.name]: e.target.value});
+    const { login, isAuth, error, clearErrors} = authContext;
+    const [show, setShow] = useState(true);
 
-    // const onSubmit = e => {
-    //     // e.preventDefault();
-    
-    //         login({
-    //             email,
-    //             password
-    //         });
-    //     }
-    
-
+    const handleErr = () => {
+        return ( 
+       <div className='text-center mb-0'>
+         <Alert style={{height: '3rem'}} variant="danger" onClose={() => setShow(false)} >
+          <p>There was a problem with your login.</p>
+        </Alert>
+        </div> 
+       )
+    }
+  
     useEffect(() => {
         if(isAuth) {
             //redirect
             props.history.push('/');
         }
 
-        // if(error === 'User does not exist') {
-        //     // setAlert(error, 'danger');
-        //     setUser({...user, password: ''});
-        //     clearErrors();
-        // }
+        if(error === null) {
+            clearErrors()
+        }
         //eslint-disable-next-line
-    }, [ isAuth, props.history, validated]);
+    }, [isAuth, props.history, error]);
 
+  
     const schema = Yup.object({
         email: Yup.string()
         .required('Please enter your email')
@@ -51,34 +45,38 @@ const Login = (props) => {
     });
 
     return (
-        <Container className='form-container'>
-            <Card className='card-container'>
-                <Card.Title className='text-center'>
+        <Container style={{height: '90vh'}}>
+            <Row style={{height: '100%'}} >
+                <Col className='d-flex align-items-center justify-content-center'>
+                <Card className='form-card'>
+                <Card.Title className='text-center mb-0'>
                     <h3 className='mt-4'>Login</h3>
                 </Card.Title>
                 <Card.Body>
-                    <Formik
-                    validationSchema={schema}
-                    onSubmit={ values => {
-                        setValidated(true)
-                        login(values)
-                        console.log(values)
-                    }
-                    }
-                    initialValues={{
+                    <Formik  initialValues={{
                         email: '', 
                         password: ''
                     }}
-                    
+                    validationSchema={schema}
+                   onSubmit={(values, actions) => {
+                    setTimeout(() => {
+                        login(values)
+                        actions.setSubmitting(false)
+                    }, 5)
+                    }}
                 >
                 {({
                     handleSubmit,
                     handleChange,
+                    handleBlur,
                     values,
                     touched,
-                    errors
+                    errors,
+        
+                    isSubmitting
                 }) => (   
-                    <Form  noValidate validated={validated} onSubmit={handleSubmit}>  
+                    <Form onSubmit={handleSubmit}> 
+                        {error && error === 400  && show ? handleErr() : null}
                         <Form.Group>
                             <Form.Label>Email</Form.Label>
                             <Form.Control
@@ -86,6 +84,7 @@ const Login = (props) => {
                                 name='email'
                                 values={values.email}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                                 isInvalid={!!errors.email && touched.email}
                             />
                             <Form.Control.Feedback type='invalid'>
@@ -99,19 +98,29 @@ const Login = (props) => {
                                 name='password'
                                 values={values.password}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                                 isInvalid={!!errors.password && touched.password}
                             />
                             <Form.Control.Feedback type='invalid'>
                                 {errors.password}
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Button type="submit" block>Login</Button>
+                        <Button type="submit" block disabled={isSubmitting} >Login</Button>
                     </Form>
                 )}
             </Formik>
-            <p className='mt-3 text-center'>Don't have an account? Sign up</p>
+            <p className='mt-3 text-center'>
+                Don't have an account? 
+                <span style={{marginLeft: 5}}>
+                    <Link to='/register'>
+                    Sign up
+                    </Link>
+                    </span>
+            </p>
             </Card.Body>
         </Card>   
+                </Col>
+            </Row>
     </Container>
 
     )
