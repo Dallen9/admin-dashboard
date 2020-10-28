@@ -30,7 +30,7 @@ const AuthState = props => {
       const loadUser = async () => {
         const config = {
             headers: {
-                'Authorization': `Bearer ${localStorage.setItem('token')}`
+                'Authorization': `Bearer ${localStorage.token}`
             }
         }
 
