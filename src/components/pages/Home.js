@@ -12,7 +12,7 @@ const Home = () => {
     // }, [loading])
     return (
         <div>
-            {user && user.role === 'super_admin' &&  <Dashboard /> : <Post />}
+            {user && user.role === 'super_admin' ? <Dashboard /> : <Post />}
         </div>
     )
 }
