@@ -47,7 +47,7 @@ const BlogNavbar = () => {
         loadUser();
     }
     // eslint-disable-next-line
-   }, [])
+   }, [token])
    
     return (
         <Fragment>
