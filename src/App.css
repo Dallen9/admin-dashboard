@@ -30,7 +30,7 @@ a {
     color: white !important;
 }
 .card-img {
-    width: auto;
+    width: 100% !important;
     height: 200px;
 }
 .rich-editor {

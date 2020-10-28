@@ -31,14 +31,10 @@ const Dashboard = () => {
         //eslint-disable-next-line
     }, [userAdded, clicked]);
 
-    if (loading) {
+
         return (
-            <Container className='loading'>
-                <Spinner animation='border' size='large' />
-            </Container>
-        )
-    } else {
-        return (
+            <>
+            {users && users != null && !loading ? (
             <Container fluid>
                 <Table striped hover responsive>
                     <thead>
@@ -77,8 +73,14 @@ const Dashboard = () => {
                 {clicked && <UserForm  clicked={clicked} setUserAdded={setUserAdded} /> } 
                 <Button className='add-btn' onClick={clickedBtn} >Add User</Button>
             </Container>
+            ) : (
+                <Container className='loading'>
+                    <Spinner animation='border' size='large' />
+                </Container>
+            )}
+            </>
         );
-    }
+    
 }
 
 export default Dashboard
