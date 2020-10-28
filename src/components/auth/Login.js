@@ -25,7 +25,7 @@ const Login = (props) => {
   
     useEffect(() => {
         if(successLogin) {
-            if(error){
+            if(!error){
                 clearErrors()
             }
             //redirect
