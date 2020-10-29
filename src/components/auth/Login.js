@@ -25,9 +25,9 @@ const Login = (props) => {
   
     useEffect(() => {
         if(successLogin && isAuth) {
-            if(error){
+           
                 clearErrors()
-            }
+            
             //redirect
             props.history.push('/');
         }
