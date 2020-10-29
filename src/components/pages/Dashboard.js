@@ -29,7 +29,7 @@ const Dashboard = () => {
             getUsers()
            
         //eslint-disable-next-line
-    }, [userAdded, clicked]);
+    }, [userAdded, clicked, loading]);
 
 
         return (

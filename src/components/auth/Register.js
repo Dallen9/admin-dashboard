@@ -26,15 +26,13 @@ const Register = (props) => {
     useEffect(() => {
 
         if(successfulRegistration) {
-            if(error){
                 clearErrors()
-            }
             //redirect
             props.history.push('/login');
         }
 
         //eslint-disable-next-line
-    }, [successfulRegistration, error, props.history]);
+    }, [successfulRegistration]);
 
   
     const schema = Yup.object({
