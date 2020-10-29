@@ -43,7 +43,7 @@ const BlogNavbar = () => {
         </Fragment>
     )
    useEffect(() => {
-    if (user) {
+    if (token) {
         loadUser();
     }
     // eslint-disable-next-line

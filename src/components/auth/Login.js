@@ -33,7 +33,7 @@ const Login = (props) => {
         }
 
         //eslint-disable-next-line
-    }, [successLogin, props.history]);
+    }, [successLogin, props.history, isAuth]);
 
 
 
