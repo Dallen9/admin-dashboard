@@ -74,12 +74,13 @@ const AuthState = props => {
             try {
                 const res = await api.post('auth', formData);
 
+                
                 dispatch({
                     type: LOGIN_SUCCESS,
                     payload: res.data
                 });
-                loadUser();
-                return true
+
+                return true;
 
             } catch (err) {
                 dispatch({

@@ -24,11 +24,13 @@ const Register = (props) => {
     }
 
     useEffect(() => {
+        clearErrors();
+    }, []);
 
+
+    useEffect(() => {
         if(successfulRegistration) {
-            if(error){
-                clearErrors()
-            }
+            clearErrors();
             //redirect
             props.history.push('/login');
         }
@@ -68,7 +70,9 @@ const Register = (props) => {
                         validationSchema={schema}
                         onSubmit={(values, actions)=> {         
                             setTimeout( () => {
-                                setRegistration(register(values))
+                                register(values).then(data => {
+                                    setRegistration(data);
+                                });
                                 actions.setSubmitting(false)
                             
                             }, 1)

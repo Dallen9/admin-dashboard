@@ -22,19 +22,17 @@ const Login = (props) => {
         </div> 
        )
     }
-  
+
     useEffect(() => {
+        clearErrors();
+    }, []);
+  
+    useEffect(() =>  {
         if(successLogin) {
-            if(error){
-                clearErrors()
-            }
-            //redirect
             props.history.push('/');
         }
-
         //eslint-disable-next-line
     }, [successLogin]);
-
 
 
   
@@ -63,7 +61,9 @@ const Login = (props) => {
                     validationSchema={schema}
                    onSubmit={(values, actions) => {
                     setTimeout(() => {
-                        setLogin(login(values))
+                        login(values).then(data => {
+                            setLogin(data);
+                        })
                         actions.setSubmitting(false)
                     }, 5)
                     }}
