@@ -5,7 +5,7 @@ import Post from './Post';
 
 const Home = () => {
     const authContext = useContext(AuthContext);
-    const {user} = authContext;
+    const {user, loading} = authContext;
 
     useEffect(() => {
         authContext.loadUser()
