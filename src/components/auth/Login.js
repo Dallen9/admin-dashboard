@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom';
 const Login = (props) => {
 
     const authContext = useContext(AuthContext);
-    const { login, isAuth, error, clearErrors} = authContext;
+    const { login, isAuth, token, error, clearErrors} = authContext;
     const [show, setShow] = useState(true);
     const [successLogin, setLogin] = useState(false);
 
@@ -23,15 +23,13 @@ const Login = (props) => {
        )
     }
   
-    useEffect(() => {
-        if(successLogin && isAuth) {
-           
-                clearErrors()
-            
-            //redirect
-            props.history.push('/');
+    useEffect(() =>  {
+        if(successLogin) {
+            if(token){
+                console.log(token)
+                props.history.push('/home');
+            }
         }
-
         //eslint-disable-next-line
     }, [successLogin, isAuth]);
 
@@ -63,8 +61,14 @@ const Login = (props) => {
                     validationSchema={schema}
                    onSubmit={(values, actions) => {
                     setTimeout(() => {
+<<<<<<< HEAD
                         login(values)
                         setLogin(true)
+=======
+                        login(values).then(data => {
+                            setLogin(true);
+                        })
+>>>>>>> auth
                         actions.setSubmitting(false)
                     }, 5)
                     }}

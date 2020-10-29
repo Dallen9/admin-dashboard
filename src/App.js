@@ -28,8 +28,9 @@ function App() {
               <div className="App">
               <Fragment >
                 <Switch>
-                  <PrivateRoute exact path='/' component={Home} />
+                  <Route exact path='/' component={Login} />
                   <PrivateRoute exact path='/blog' component={Post}/>
+                  <PrivateRoute exact path='/home' component={Home}/>
                   <PrivateRoute exact path='/detail/:id' component={PostDetail}/>
                   <PrivateRoute exact path='/profile' component={Profile} />
                   <PrivateRoute exact path='/account' component={Account} />
