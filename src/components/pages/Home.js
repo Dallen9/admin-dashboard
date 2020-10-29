@@ -5,14 +5,12 @@ import Post from './Post';
 
 const Home = () => {
     const authContext = useContext(AuthContext);
-    const {user, loading} = authContext;
+    const {user} = authContext;
 
-    useEffect(() => {
-        authContext.loadUser()
-    }, [loading])
+   
     return (
         <div>
-            {user && user.role === 'super_admin' && !loading ? <Dashboard /> : <Post />}
+            {user && user.role === 'super_admin' ? <Dashboard /> : <Post />}
         </div>
     )
 }
