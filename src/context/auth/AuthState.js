@@ -17,7 +17,7 @@ import {
 
 const AuthState = props => {
     const initialState = {
-        token: localStorage.getItem('token'),
+        token: null,
         isAuth: null,
         loading: true,
         user: null,
@@ -28,9 +28,10 @@ const AuthState = props => {
 
       //Load user
       const loadUser = async () => {
+        let token = localStorage.token;
         const config = {
             headers: {
-                'Authorization': `Bearer ${localStorage.token}`
+                'Authorization': `Bearer ${token}`
             }
         }
 
@@ -80,14 +81,17 @@ const AuthState = props => {
                     payload: res.data
                 });
 
-                return true;
+                // return true;
+                let user = await loadUser();
 
             } catch (err) {
                 dispatch({
                     type: LOGIN_FAIL,
                     payload: err.response.status
                 });
-                return false
+                // return false
+                let user = await loadUser();
+
             }
         };
 

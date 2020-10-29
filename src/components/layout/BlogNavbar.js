@@ -17,7 +17,7 @@ const BlogNavbar = () => {
                 Stories
                </Nav.Link>
                 ) : (
-                    <Nav.Link as={Link} to='/' >
+                    <Nav.Link as={Link} to='/home' >
                     Stories
                     </Nav.Link>
                 )}
@@ -63,7 +63,7 @@ const BlogNavbar = () => {
                 </Nav>
                 <Nav>
                 {token && !loading ? (
-                <Nav.Link as={Link} to='/'className='d-flex align-items-center' onClick={logout}>
+                <Nav.Link as={Link} to='/home'className='d-flex align-items-center' onClick={logout}>
                 <FontAwesomeIcon  icon={faSignOutAlt} size='lg' color='white'/> 
                 <h6 className='my-auto ml-1 text-white'>Logout</h6> 
                 </Nav.Link>
