@@ -43,16 +43,16 @@ const BlogNavbar = () => {
         </Fragment>
     )
    useEffect(() => {
-    if (isAuth) {
+    if (token) {
         loadUser();
     }
     // eslint-disable-next-line
-   }, [isAuth])
+   }, [token])
    
     return (
         <Fragment>
                 <Navbar collapseOnSelect expand="md" sticky="top" bg='dark' variant='dark' className='px-4' style={{minHeight: '80px' }}>
-                <Navbar.Brand className='d-flex align-items-center' as={Link} to='/'>
+                <Navbar.Brand className='d-flex align-items-center' as={Link} to='/home'>
                         <FontAwesomeIcon  icon={faBookReader} size='2x'/>
                         <h3 className='my-auto ml-2' >Amazing Blog</h3>
                 </Navbar.Brand>

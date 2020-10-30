@@ -26,7 +26,6 @@ const Login = (props) => {
     useEffect(() =>  {
         if(successLogin) {
             if(token){
-                console.log(token)
                 props.history.push('/home');
             }
         }
@@ -61,14 +60,11 @@ const Login = (props) => {
                     validationSchema={schema}
                    onSubmit={(values, actions) => {
                     setTimeout(() => {
-<<<<<<< HEAD
                         login(values)
                         setLogin(true)
-=======
-                        login(values).then(data => {
-                            setLogin(true);
-                        })
->>>>>>> auth
+                        // login(values).then(data => {
+                        //     setLogin(true);
+                        // })
                         actions.setSubmitting(false)
                     }, 5)
                     }}

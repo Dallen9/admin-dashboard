@@ -18,7 +18,6 @@ const UserForm = ({clicked, setUserAdded}) => {
         if(clicked) {
             handleShow();
         }
-
         // eslint-disable-next-line
     }, [clicked, setUserAdded])
 
@@ -55,11 +54,11 @@ const UserForm = ({clicked, setUserAdded}) => {
                             validationSchema={schema}
                             onSubmit={(values, actions)=> {
                                 setTimeout(() => {
-                                    addUser(values)
-                                    setUserAdded(true)
+                                    addUser(values).then(data => {
+                                    setUserAdded(true)})
                                     actions.setSubmitting(false)
                                     handleClose();
-                                }, 5)  
+                                }, 10)  
                             }}
                             initialValues={{
                                 username: '',

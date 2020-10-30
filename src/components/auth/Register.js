@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom';
 const Register = (props) => {
 
     const authContext = useContext(AuthContext);
-    const { register, error, clearErrors } = authContext;
+    const { register, error, clearErrors, isAuth } = authContext;
     const [successfulRegistration, setRegistration] = useState(false);
     const [show, setShow] = useState(true);
 
@@ -32,11 +32,12 @@ const Register = (props) => {
         if(successfulRegistration) {
             clearErrors();
             //redirect
-            props.history.push('/login');
+            if(isAuth) {
+                props.history.push('/home');
+            }
         }
-
         //eslint-disable-next-line
-    }, [successfulRegistration]);
+    }, [successfulRegistration, isAuth]);
 
   
     const schema = Yup.object({
@@ -70,14 +71,11 @@ const Register = (props) => {
                         validationSchema={schema}
                         onSubmit={(values, actions)=> {         
                             setTimeout( () => {
-<<<<<<< HEAD
                                 register(values)
                                 setRegistration(true)
-=======
-                                register(values).then(data => {
-                                    setRegistration(data);
-                                });
->>>>>>> auth
+                                // register(values).then(data => {
+                                //     setRegistration(data);
+                                // });
                                 actions.setSubmitting(false)
                             
                             }, 1)

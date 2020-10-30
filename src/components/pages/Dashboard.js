@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Table ,Container, Spinner, Button }from 'react-bootstrap';
 import AdminContext from '../../context/admin/adminContext';
+import AuthContext from '../../context/auth/authContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import UserForm from '../users/UserForm';
@@ -8,8 +9,10 @@ import {Link} from 'react-router-dom';
 
 const Dashboard = () => {
     const adminContext = useContext(AdminContext);
+    const authContext = useContext(AuthContext);
 
     const {getUsers, loading, users, deleteUser, clearCurrent} = adminContext;
+    const {user} = authContext;
 
     const [clicked, setClicked] = useState(false);
     const [userAdded, setUserAdded] = useState(false);
@@ -20,16 +23,18 @@ const Dashboard = () => {
     }
 
     const clickedBtn = () => setClicked({clicked: !clicked});  
-    
     useEffect(() => {
-        if(userAdded) {
+        if(userAdded && !loading) {
             setUserAdded(false)
             setClicked(false)
-           } 
             getUsers()
-           
+           }
+    }, [userAdded, clicked, loading])
+
+    useEffect(() => {
+            getUsers()
         //eslint-disable-next-line
-    }, [userAdded, clicked, loading]);
+    }, []);
 
 
         return (
@@ -62,9 +67,9 @@ const Dashboard = () => {
                                     </Link>
                                 </td>
                                 <td style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-                                    <a href='#'>
+                                    <Link to='/home'>
                                     <FontAwesomeIcon onClick={() => onDelete(user._id)}  icon={faTrash} style={{ color: 'red'}} />
-                                    </a>                                    
+                                    </Link>                                    
                                 </td>
                             </tr>
                         ))}
