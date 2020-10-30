@@ -43,7 +43,7 @@ const PostDetail = (props) => {
   
     return (
         <Fragment>
-            {post && post !== null && !loading ? (
+            {post && post._id === props.match.params.id && !loading ? (
             <Container>
                 <Row className='mt-5'>
                     <Col>

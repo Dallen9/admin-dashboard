@@ -1,11 +1,11 @@
 import React, {useContext, useState} from 'react'
-import {Container, Row, Col, Button, Card, Form} from 'react-bootstrap';
+import {Container, Row, Col, Button, Card, Form, Alert} from 'react-bootstrap';
 import { EditorState, convertToRaw } from 'draft-js';	
 import { Editor } from 'react-draft-wysiwyg';
 import PostContext from '../../context/post/postContext';
 import draftToMarkdown from 'draftjs-to-markdown';
 
-const NewPost = () => {
+const NewPost = (props) => {
  
     const postContext = useContext(PostContext);
 
@@ -15,6 +15,7 @@ const NewPost = () => {
         title: '',
         body: ''
     });
+    const [success, setSuccess] = useState(false)
     
 
     const onEditorStateChange = editorState => {
@@ -37,20 +38,31 @@ const NewPost = () => {
             [e.target.name]: e.target.value
         })
     }
-
+const successMsg = () => {
+    return (
+        <Alert variant='success'>
+            <p className='d-flex my-auto mx-auto'>You have successfully created a blog!</p>
+        </Alert>
+    )
+}
     const onSubmit = (e) => {
         e.preventDefault();
 
         if(post.title !== '' && post.body !== '') {
-            addPost(post)
-            setPost({title: ''})
-            setEditorState(EditorState.createEmpty());
+                addPost(post)
+                setPost({title: ''})
+                setEditorState(EditorState.createEmpty());
+                setSuccess(true)
+            setTimeout(() => {
+                props.history.push('/blog')
+            }, 2000)
         } 
     }
   
-
     return (
+        <>
         <Container  className='my-5'>
+        {success && (<div className='mb-3'><Row><Col>{successMsg()}</Col></Row></div>)}
             <Row>
                 <Col>
                     <Card>
@@ -110,6 +122,7 @@ const NewPost = () => {
                 </Col>
             </Row>
         </Container>
+        </>
     )
 }
 

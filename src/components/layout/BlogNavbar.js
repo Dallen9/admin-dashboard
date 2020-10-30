@@ -59,11 +59,11 @@ const BlogNavbar = () => {
                 <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
                 <Navbar.Collapse id='responsive-navbar-nav'>
                 <Nav className='ml-auto pr-2'>
-                    {token  && !loading ? authLinks : guestLinks}
+                    {token  ? authLinks : guestLinks}
                 </Nav>
                 <Nav>
-                {token && !loading ? (
-                <Nav.Link as={Link} to='/home'className='d-flex align-items-center' onClick={logout}>
+                {token ? (
+                <Nav.Link as={Link} to='/'className='d-flex align-items-center' onClick={logout}>
                 <FontAwesomeIcon  icon={faSignOutAlt} size='lg' color='white'/> 
                 <h6 className='my-auto ml-1 text-white'>Logout</h6> 
                 </Nav.Link>

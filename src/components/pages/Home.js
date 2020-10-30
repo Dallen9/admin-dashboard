@@ -5,12 +5,12 @@ import Post from './Post';
 
 const Home = () => {
     const authContext = useContext(AuthContext);
-    const {user, loading} = authContext;
+    const {user} = authContext;
 
     return (
         <>
-            {user && user.role !== 'super_admin' && !loading && <Post/>}
-            {user && user.role === 'super_admin' && !loading && <Dashboard/>}
+            {user && user.role !== 'super_admin' && <Post/>}
+            {user && user.role === 'super_admin' && <Dashboard/> }
         </>
     )
 }
