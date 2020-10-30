@@ -29,7 +29,7 @@ const UserPost = () => {
     return (
         <>
         <Container>
-            <Row className='my-5'>
+            <Row className='mt-5 mb-2'>
                 <Col>
                 <h1>Published Stories</h1>
                 </Col>
@@ -49,23 +49,23 @@ const UserPost = () => {
                     userPosts.posts.map(post => {
                              return (
                                 <Col className='my-4' key={post._id}  md={6} lg={4} >
-                                    <Card>
+                                    <Card style={{height: '25rem'}}>
                                     <Card.Img variant= 'top' className='card-img' src={stock} alt='stock'/>
-                                       <Card.Body>
-                                        <h5>{truncate(post.title, 36)}</h5>
+                                       <Card.Body className='d-flex align-items-left justify-content-left flex-column'>
+                                        <h5>{truncate(post.title, 30)}</h5>
                                         <small className='text-muted'>{post.date}</small>
                                         <h6 style={{textTransform: 'capitalize', marginBottom: '0 !important'}}>By {post.user.name}</h6>
-                                         <Row className='mt-3 d-flex'>
-                                             <Col className='d-flex  flex-column'>
+                                         <Row className='my-auto  flex-row '>
+                                             <Col className='d-flex flex-column '>
                                                 <Link className='d-flex flex-column' id={post._id} to={{
                                                     pathname: '/user-posts/' + post._id,
                                                     state: post
                                                     }}> 
-                                             <Button className='px-4' onClick={() => setCurrent(post)} >Edit</Button>
+                                             <Button  onClick={() => setCurrent(post)} >Edit</Button>
                                              </Link> 
                                              </Col>
                                              <Col className='d-flex flex-column '>
-                                             <Button  className='px-4' variant='danger' onClick={() => onDelete(post._id)}>
+                                             <Button  variant='danger' onClick={() => onDelete(post._id)}>
                                                  Delete
                                              </Button>
                                              </Col>

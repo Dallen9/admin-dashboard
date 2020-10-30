@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Card, Form, Container, Button, Row, Col, Alert} from 'react-bootstrap';
+import {Card, Form, Container, Button, Row, Col, Alert, Spinner} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import AuthContext from '../../context/auth/authContext';
@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom';
 const Login = (props) => {
 
     const authContext = useContext(AuthContext);
-    const { login, isAuth, token, error, clearErrors} = authContext;
+    const { login, isAuth, token, error, clearErrors, loading} = authContext;
     const [show, setShow] = useState(true);
     const [successLogin, setLogin] = useState(false);
 
@@ -27,14 +27,13 @@ const Login = (props) => {
         if(successLogin) {
             if(token){
                 props.history.push('/home');
+                clearErrors()
             }
         }
         //eslint-disable-next-line
     }, [successLogin, isAuth]);
 
 
-
-  
     const schema = Yup.object({
         email: Yup.string()
         .required('Please enter your email')
@@ -62,11 +61,8 @@ const Login = (props) => {
                     setTimeout(() => {
                         login(values)
                         setLogin(true)
-                        // login(values).then(data => {
-                        //     setLogin(true);
-                        // })
                         actions.setSubmitting(false)
-                    }, 5)
+                    }, 200)
                     }}
                 >
                 {({
@@ -76,7 +72,6 @@ const Login = (props) => {
                     values,
                     touched,
                     errors,
-        
                     isSubmitting
                 }) => (   
                     <Form onSubmit={handleSubmit}> 
@@ -109,7 +104,7 @@ const Login = (props) => {
                                 {errors.password}
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Button type="submit" block disabled={isSubmitting} >Login</Button>
+                        <Button type="submit" block disabled={isSubmitting}>{isSubmitting ? <Spinner role='status' size='sm' animation='border'/>  : 'Login'}</Button>
                     </Form>
                 )}
             </Formik>

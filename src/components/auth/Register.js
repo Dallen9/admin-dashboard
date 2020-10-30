@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {Card, Form, Container, Button, Row, Col , Alert} from 'react-bootstrap';
+import {Card, Form, Container, Button, Row, Col , Alert, Spinner} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import AuthContext from '../../context/auth/authContext';
@@ -73,12 +73,9 @@ const Register = (props) => {
                             setTimeout( () => {
                                 register(values)
                                 setRegistration(true)
-                                // register(values).then(data => {
-                                //     setRegistration(data);
-                                // });
                                 actions.setSubmitting(false)
                             
-                            }, 1)
+                            }, 200)
                         }}
                         initialValues={{
                             username: '',
@@ -179,7 +176,7 @@ const Register = (props) => {
                                     {errors.role}
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            <Button variant="primary" block type="submit" disabled={isSubmitting}>Sign Up</Button>
+                            <Button variant="primary" block type="submit" disabled={isSubmitting}>{isSubmitting ? <Spinner role='status' size='sm' animation='border'/>  : 'Sign Up'}</Button>
                         </Form>
                         )}
                     </Formik>

@@ -21,14 +21,19 @@ const BlogNavbar = () => {
                     Stories
                     </Nav.Link>
                 )}
+                  
+            {user && user.role !== 'Subscriber' ? (
             <NavDropdown className='ml-1' title={<FontAwesomeIcon icon={faUser} size='lg'/>} id='collapsible-nav-dropdown'>
-                    <NavDropdown.Item  as={Link} to='/profile'>Profile</NavDropdown.Item>
-                    <NavDropdown.Item  as={Link} to='/create-post'>New Story</NavDropdown.Item>
-                    <NavDropdown.Item  as={Link} to='/user-posts'>Published</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item  as={Link} to='/account'>Account</NavDropdown.Item>
+                <NavDropdown.Item  as={Link} to='/profile'>Profile</NavDropdown.Item>
+                <NavDropdown.Item  as={Link} to='/create-post'>New Story</NavDropdown.Item>
+                <NavDropdown.Item  as={Link} to='/user-posts'>Published</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item  as={Link} to='/account'>Account</NavDropdown.Item>
             </NavDropdown>
-            
+
+            ) : ( 
+            <Nav.Link className='my-auto ml-1' as={Link} to='/account'>Account</Nav.Link>
+            )}
         </Fragment>
     );
 
@@ -52,7 +57,7 @@ const BlogNavbar = () => {
     return (
         <Fragment>
                 <Navbar collapseOnSelect expand="md" sticky="top" bg='dark' variant='dark' className='px-4' style={{minHeight: '80px' }}>
-                <Navbar.Brand className='d-flex align-items-center' as={Link} to='/home'>
+                <Navbar.Brand className='d-flex align-items-center' as={Link} to={token ? '/home' : '/'}>
                         <FontAwesomeIcon  icon={faBookReader} size='2x'/>
                         <h3 className='my-auto ml-2' >Amazing Blog</h3>
                 </Navbar.Brand>
