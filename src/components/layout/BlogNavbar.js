@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom';
 const BlogNavbar = () => {
     const authContext = useContext(AuthContext);
 
-    const {logout, loading, user, token, isAuth, loadUser} = authContext;
+    const {logout, user, token, loadUser} = authContext;
 
     const authLinks = (
         <Fragment>

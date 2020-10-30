@@ -1,16 +1,13 @@
 import React, {useContext, useEffect} from 'react'
 import {Container, Row, Col, Spinner, Card, Button} from 'react-bootstrap';
 import PostContext from '../../context/post/postContext';
-import AuthContext from '../../context/auth/authContext';
 import stock from '../../assets/stock.jpg';
 import { Link } from 'react-router-dom';
 
 const UserPost = () => {
     const postContext = useContext(PostContext)
-    const authContext = useContext(AuthContext)
     
     const {getAllUserPosts, loading, userPosts, deletePost, setCurrent, clearCurrent, post} = postContext;
-    const {user} = authContext;
 
     const truncate = (post, size) => {
         return post.length > size ? post.slice(0, size - 1) + "…" : post;

@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Table ,Container, Spinner, Button }from 'react-bootstrap';
 import AdminContext from '../../context/admin/adminContext';
-import AuthContext from '../../context/auth/authContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import UserForm from '../users/UserForm';
@@ -9,10 +8,8 @@ import {Link} from 'react-router-dom';
 
 const Dashboard = () => {
     const adminContext = useContext(AdminContext);
-    const authContext = useContext(AuthContext);
 
     const {getUsers, loading, users, deleteUser, clearCurrent} = adminContext;
-    const {user} = authContext;
 
     const [clicked, setClicked] = useState(false);
     const [userAdded, setUserAdded] = useState(false);
@@ -29,6 +26,7 @@ const Dashboard = () => {
             setClicked(false)
             getUsers()
            }
+        //eslint-disable-next-line
     }, [userAdded, clicked, loading])
 
     useEffect(() => {

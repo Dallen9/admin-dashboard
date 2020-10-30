@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom';
 const Login = (props) => {
 
     const authContext = useContext(AuthContext);
-    const { login, isAuth, token, error, clearErrors, loading} = authContext;
+    const { login, isAuth, token, error, clearErrors} = authContext;
     const [show, setShow] = useState(true);
     const [successLogin, setLogin] = useState(false);
 

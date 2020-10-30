@@ -25,12 +25,12 @@ const Register = (props) => {
 
     useEffect(() => {
         clearErrors();
+        //eslint-disable-next-line
     }, []);
 
 
     useEffect(() => {
         if(successfulRegistration) {
-            clearErrors();
             //redirect
             if(isAuth) {
                 props.history.push('/home');

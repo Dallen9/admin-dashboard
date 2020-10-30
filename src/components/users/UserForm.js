@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {Form, Button, Modal, ModalFooter} from 'react-bootstrap';
+import {Form, Button, Modal, ModalFooter, Spinner} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import AdminContext from '../../context/admin/adminContext';
@@ -9,10 +9,11 @@ const UserForm = ({clicked, setUserAdded}) => {
     const {addUser} = adminContext;
 
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+  
+    
       useEffect(() => {
           
         if(clicked) {
@@ -54,12 +55,17 @@ const UserForm = ({clicked, setUserAdded}) => {
                             validationSchema={schema}
                             onSubmit={(values, actions)=> {
                                 setTimeout(() => {
-                                    addUser(values).then(data => {
-                                    setUserAdded(true)})
-                                    actions.setSubmitting(false)
-                                    handleClose();
-                                }, 10)  
-                            }}
+                                    addUser(values)
+                                    .then(data => {
+                                        actions.setSubmitting(false)  
+                                    })
+                                    .then(data => {
+                                        setUserAdded(true)
+                                    })                                      
+                                }, 500)
+
+
+                                }}
                             initialValues={{
                                 username: '',
                                 name: '',
@@ -67,6 +73,8 @@ const UserForm = ({clicked, setUserAdded}) => {
                                 password: '',
                                 role: ''
                             }}
+                            validateOnChange={true}
+                            validateOnBlur={true}
                         >
                         {({
                             handleSubmit,
@@ -78,6 +86,7 @@ const UserForm = ({clicked, setUserAdded}) => {
                         }) => (
 
                             <Form  onSubmit={handleSubmit}> 
+
                                 <Modal.Body>
                                 <Form.Group>
                                     <Form.Label>Username</Form.Label>
@@ -154,7 +163,7 @@ const UserForm = ({clicked, setUserAdded}) => {
                                 </Form.Group>
                                 </Modal.Body>
                                 <ModalFooter>
-                                <Button variant="primary" block type="submit" disabled={isSubmitting} >Create user</Button>
+                                <Button variant="primary" block type="submit" disabled={isSubmitting}>{isSubmitting ? <Spinner role='status' size='sm' animation='border'/>  : 'Create User'}</Button>
                                 </ModalFooter>
                             </Form>
                             )}
