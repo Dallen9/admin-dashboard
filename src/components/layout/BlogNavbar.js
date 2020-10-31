@@ -17,12 +17,12 @@ const BlogNavbar = () => {
                 Stories
                </Nav.Link>
                 ) : (
-                    <Nav.Link as={Link} to='/home' >
+                    <Nav.Link as={Link} to='/' >
                     Stories
                     </Nav.Link>
                 )}
                   
-            {user && user.role !== 'Subscriber' ? (
+            {user && user.role !== 'Subscriber'  && (
             <NavDropdown className='ml-1' title={<FontAwesomeIcon icon={faUser} size='lg'/>} id='collapsible-nav-dropdown'>
                 <NavDropdown.Item  as={Link} to='/profile'>Profile</NavDropdown.Item>
                 <NavDropdown.Item  as={Link} to='/create-post'>New Story</NavDropdown.Item>
@@ -31,7 +31,8 @@ const BlogNavbar = () => {
                 <NavDropdown.Item  as={Link} to='/account'>Account</NavDropdown.Item>
             </NavDropdown>
 
-            ) : ( 
+            )} 
+            {user && user.role === 'Subscriber' && (
             <Nav.Link className='my-auto ml-1' as={Link} to='/account'>Account</Nav.Link>
             )}
         </Fragment>
@@ -48,23 +49,23 @@ const BlogNavbar = () => {
         </Fragment>
     )
    useEffect(() => {
-    if (token) {
-        loadUser();
-    }
+       if(token) {
+            loadUser();
+       }
     // eslint-disable-next-line
    }, [token])
    
     return (
         <Fragment>
                 <Navbar collapseOnSelect expand="md" sticky="top" bg='dark' variant='dark' className='px-4' style={{minHeight: '80px' }}>
-                <Navbar.Brand className='d-flex align-items-center' as={Link} to={token ? '/home' : '/'}>
+                <Navbar.Brand className='d-flex align-items-center' as={Link} to='/'>
                         <FontAwesomeIcon  icon={faBookReader} size='2x'/>
                         <h3 className='my-auto ml-2' >Amazing Blog</h3>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
                 <Navbar.Collapse id='responsive-navbar-nav'>
                 <Nav className='ml-auto pr-2'>
-                    {token  ? authLinks : guestLinks}
+                    {token ? authLinks : guestLinks}
                 </Nav>
                 <Nav>
                 {token ? (

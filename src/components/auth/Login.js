@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom';
 const Login = (props) => {
 
     const authContext = useContext(AuthContext);
-    const { login, isAuth, token, error, clearErrors} = authContext;
+    const { login, token, error, clearErrors} = authContext;
     const [show, setShow] = useState(true);
     const [successLogin, setLogin] = useState(false);
 
@@ -26,12 +26,12 @@ const Login = (props) => {
     useEffect(() =>  {
         if(successLogin) {
             if(token){
-                props.history.push('/home');
+                props.history.push('/');
                 clearErrors()
             }
         }
         //eslint-disable-next-line
-    }, [successLogin, isAuth]);
+    }, [successLogin, token]);
 
 
     const schema = Yup.object({

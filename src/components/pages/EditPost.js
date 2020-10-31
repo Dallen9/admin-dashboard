@@ -14,7 +14,7 @@ const EditPost = (props) => {
     const [update, setUpdate] = useState({
         
         title: '',
-        body: current && current.body || props.location.state.body
+        body: ((current && current.body ) || props.location.state.body)
     });
 
     const [validated, setValidated] = useState(false);
@@ -64,7 +64,7 @@ const EditPost = (props) => {
    }
 
    useEffect(() => {
-    
+  
      handleShow();
        
     if(validated) {

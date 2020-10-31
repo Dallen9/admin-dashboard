@@ -33,7 +33,7 @@ const Register = (props) => {
         if(successfulRegistration) {
             //redirect
             if(isAuth) {
-                props.history.push('/home');
+                props.history.push('/');
             }
         }
         //eslint-disable-next-line
@@ -97,7 +97,7 @@ const Register = (props) => {
                         errors,
                     }) => (
                         <Form onSubmit={handleSubmit}>
-                            {error  && error === 400 || error === 403  && show ? handleErr() : null}
+                            {((error && error === 400) || error === 403)  && show ? handleErr() : null}
                             <Form.Group>
                                 <Form.Label>Username</Form.Label>
                                 <Form.Control

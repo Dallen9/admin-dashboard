@@ -17,20 +17,20 @@ import NewPost from './components/pages/NewPost';
 import UserPost from './components/pages/UserPost';
 import Account from './components/pages/Account';
 import EditPost  from './components/pages/EditPost'
+import NotFound  from './components/pages/NotFound'
 import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 function App() {
   return (
     <AuthState>
       <AdminState>
         <PostState>
-          <Router >
+          <Router>
           <BlogNavbar />
               <div className="App">
               <Fragment >
                 <Switch>
-                  <Route exact path='/' component={Login} />
                   <PrivateRoute exact path='/blog' component={Post}/>
-                  <PrivateRoute exact path='/home' component={Home}/>
+                  <PrivateRoute exact path='/' component={Home}/>
                   <PrivateRoute exact path='/detail/:id' component={PostDetail}/>
                   <PrivateRoute exact path='/profile' component={Profile} />
                   <PrivateRoute exact path='/account' component={Account} />
@@ -39,6 +39,7 @@ function App() {
                   <PrivateRoute exact path='/user-posts/:id' component={EditPost} />
                   <Route exact path='/register' component={Register}/>
                   <Route exact path='/login' component={Login}/>
+                  <Route component={NotFound} />
                 </Switch>
                 </Fragment>
                 </div>
