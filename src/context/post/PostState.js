@@ -60,7 +60,7 @@ const PostState = props => {
            
         }
 
-        //get app post by a user
+        //get all post by a user
         const getAllUserPosts = async () => {
             try {
                 const res = await api.get(`post/user`);
