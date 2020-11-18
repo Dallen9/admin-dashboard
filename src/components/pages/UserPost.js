@@ -24,7 +24,6 @@ const UserPost = () => {
     }, [loading, post])
 
     return (
-        <>
         <Container>
             <Row className='mt-5 mb-2'>
                 <Col>
@@ -47,26 +46,27 @@ const UserPost = () => {
                              return (
                                 <Col className='my-4' key={post._id}  md={6} lg={4} >
                                     <Card style={{height: '25rem'}}>
-                                    <Card.Img variant= 'top' className='card-img' src={stock} alt='stock'/>
-                                       <Card.Body className='d-flex align-items-left justify-content-left flex-column'>
-                                        <h5>{truncate(post.title, 30)}</h5>
-                                        <small className='text-muted'>{post.date}</small>
-                                        <h6 style={{textTransform: 'capitalize', marginBottom: '0 !important'}}>By {post.user.name}</h6>
-                                         <Row className='my-auto  flex-row '>
-                                             <Col className='d-flex flex-column '>
-                                                <Link className='d-flex flex-column' id={post._id} to={{
-                                                    pathname: '/user-posts/' + post._id,
-                                                    state: post
-                                                    }}> 
-                                             <Button  onClick={() => setCurrent(post)} >Edit</Button>
-                                             </Link> 
-                                             </Col>
-                                             <Col className='d-flex flex-column '>
-                                             <Button  variant='danger' onClick={() => onDelete(post._id)}>
-                                                 Delete
-                                             </Button>
-                                             </Col>
-                                         </Row> 
+                                        <Card.Img variant= 'top' className='card-img' src={stock} alt='stock'/>
+                                        <Card.Body className='d-flex align-items-left justify-content-left flex-column'>
+                                            <h5>{truncate(post.title, 30)}</h5>
+                                            <small className='text-muted'>{post.date}</small>
+                                            <h6 style={{textTransform: 'capitalize', marginBottom: '0 !important'}}>By {post.user.name}</h6>
+                                            <Row className='my-auto  flex-row '>
+                                                <Col className='d-flex flex-column '>
+                                                    <Link 
+                                                    className='d-flex flex-column' 
+                                                    id={post._id} 
+                                                    to={{pathname: '/user-posts/' + post._id,state: post}}
+                                                    > 
+                                                        <Button  onClick={() => setCurrent(post)} >Edit</Button>
+                                                    </Link> 
+                                                </Col>
+                                                <Col className='d-flex flex-column '>
+                                                    <Button  variant='danger' onClick={() => onDelete(post._id)}>
+                                                        Delete
+                                                    </Button>
+                                                </Col>
+                                             </Row> 
                                        </Card.Body>
                                     </Card>
                                 </Col>
@@ -79,7 +79,6 @@ const UserPost = () => {
                     }
             </Row>
         </Container>
-        </>
     )
 }
 

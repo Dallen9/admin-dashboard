@@ -11,25 +11,25 @@ const PostDetail = (props) => {
     const {loading, post, getUserPost} = postContext;
 
  
-  const editedBody = (body) => {
-      if(!loading && post) {
+    const editedBody = (body) => {
         const blocksFromHtml = htmlToDraft(body);
-        const { contentBlocks, entityMap } = blocksFromHtml;
+        const {contentBlocks, entityMap} = blocksFromHtml;
         const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
         const editorState = EditorState.createWithContent(contentState);
-          return (
-              <div>
-                <Editor
-                    editorState={editorState}
-                    editorContent={contentState}
-                    toolbarHidden 
-                    readOnly
-                />
-                </div>
-          )
-      }
 
-  }
+        if(!loading && post) {
+            return (
+                <div>
+                    <Editor
+                        editorState={editorState}
+                        editorContent={contentState}
+                        toolbarHidden 
+                        readOnly
+                    />
+                </div>
+            )
+        }
+    }
 
     useEffect(() => {
         getUserPost(props.match.params.id)
@@ -44,27 +44,27 @@ const PostDetail = (props) => {
     return (
         <Fragment>
             {post && post._id === props.match.params.id && !loading ? (
-            <Container>
-                <Row className='mt-5'>
-                    <Col>
-                    <h1>{post && post.title}</h1>
-                    </Col>
-                </Row>
-                <Row className='mt-3 pl-3'>
-                    <Col>
-                    <small style={{color: 'black'}}> by <strong>Name on</strong> {post && post.date} </small>
-                    </Col>
-                </Row>
-                <Row className='mt-5'>
-                    <Col>
-                            {editedBody(post && post.body)}
-                    </Col>
-                </Row>
-            </Container>
+                <Container>
+                    <Row className='mt-5'>
+                        <Col>
+                        <h1>{post && post.title}</h1>
+                        </Col>
+                    </Row>
+                    <Row className='mt-3 pl-3'>
+                        <Col>
+                        <small style={{color: 'black'}}> by <strong>Name on</strong> {post && post.date} </small>
+                        </Col>
+                    </Row>
+                    <Row className='mt-5'>
+                        <Col>
+                                {editedBody(post && post.body)}
+                        </Col>
+                    </Row>
+                </Container>
             ) : (
-            <Container className='loading'>
-            <Spinner animation='border' size='large' />
-            </Container>
+                <Container className='loading'>
+                    <Spinner animation='border' size='large' />
+                </Container>
             )}
         </Fragment>
     )

@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react'
 import {Container, Row, Col, Button, Card, Form, Alert} from 'react-bootstrap';
-import { EditorState, convertToRaw } from 'draft-js';	
-import { Editor } from 'react-draft-wysiwyg';
+import {EditorState, convertToRaw } from 'draft-js';	
+import {Editor} from 'react-draft-wysiwyg';
 import PostContext from '../../context/post/postContext';
 import draftToMarkdown from 'draftjs-to-markdown';
 

@@ -8,7 +8,6 @@ import {
     CLEAR_USERS,
     CLEAR_CURRENT,
     SET_CURRENT
-    // CLEAR_ERRORS
 } from '../types';
 
 export default (state, action) => {

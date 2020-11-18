@@ -25,7 +25,7 @@ const Dashboard = () => {
             setUserAdded(false)
             setClicked(false)
             getUsers()
-           }
+        }
         //eslint-disable-next-line
     }, [userAdded, clicked, loading])
 
@@ -35,9 +35,9 @@ const Dashboard = () => {
     }, []);
 
 
-        return (
-            <>
-            {users && users != null && !loading ? (
+    return (
+        <>
+        {users && users != null && !loading ? (
             <Container fluid>
                 <Table striped hover responsive>
                     <thead>
@@ -81,9 +81,8 @@ const Dashboard = () => {
                     <Spinner animation='border' size='large' />
                 </Container>
             )}
-            </>
-        );
-    
+        </>
+    );
 }
 
 export default Dashboard

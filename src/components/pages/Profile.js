@@ -4,9 +4,6 @@ import AuthContext from '../../context/auth/authContext';
 import PostContext from '../../context/post/postContext';
 import PostItem from '../post/PostItem';
 
-// import {faUser} from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 const Profile = () => {
     const authContext = useContext(AuthContext);
     const postContext = useContext(PostContext)
@@ -14,7 +11,6 @@ const Profile = () => {
     const{user} = authContext;
     const {getAllUserPosts, loading, userPosts} = postContext;
 
-   
     useEffect(() => {
         getAllUserPosts(user && user._id)
 
@@ -24,10 +20,6 @@ const Profile = () => {
     // eslint-disable-next-line
     }, [loading, user])
 
-    // if(userPosts && userPosts !== null && userPosts.posts.length === 0 && !loading) {
-    //     return <h4>No post available...</h4>
-    // }
-  
     return (
         <Container >
             <Row>
@@ -51,23 +43,18 @@ const Profile = () => {
                     <div>
                 <span className="sr-only">No post Available</span>
                     </div>
-                )
-                
-         : 
-                (userPosts && userPosts.posts !== null && !loading ? (
-                    userPosts.posts.map(post => {
-                             return (
-                                <Col key={post._id}  md={6} lg={4} >
-                                    <PostItem key={post._id} post={post} />
-                                </Col>
-                            )}
-                        )
-                    ) 
-                    :  <Container className='loading'>
+                ) : (userPosts && userPosts.posts !== null && !loading ? (
+                        userPosts.posts.map(post => {
+                            return (
+                            <Col key={post._id}  md={6} lg={4} >
+                                <PostItem key={post._id} post={post} />
+                            </Col>
+                        )}
+                    )
+                ) :  <Container className='loading'>
                             <Spinner animation='border' size='large' />
                         </Container>
-                        )
-                    
+                    )
                 }
             </Row> 
         </Container>

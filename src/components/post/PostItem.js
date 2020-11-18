@@ -17,7 +17,6 @@ const PostItem = ({post}) => {
     const editorState = EditorState.createWithContent(contentState);
     
     return (
-       <>
         <Card key={post._id} className='mb-5' style={{height: '26rem'}}  >
             <Link style={{color: 'black', height: '100%'}} to={'/detail/' + post._id} >
             <Card.Img variant= 'top' className='card-img' src={stock} alt='stock'/>
@@ -37,8 +36,7 @@ const PostItem = ({post}) => {
                 </div>
             </Card.Body>
             </Link>
-        </Card>   
-         </>       
+        </Card>      
     )
 }
 

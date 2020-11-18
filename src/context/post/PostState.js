@@ -146,7 +146,6 @@ const PostState = props => {
       dispatch({type: CLEAR_CURRENT});
   };
 
-      
     return (
         <PostContext.Provider
         value={{
